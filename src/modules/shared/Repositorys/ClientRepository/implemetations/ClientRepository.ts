@@ -4,14 +4,21 @@ import {
   ClientRepositoryContractProps,
 } from "../client-repository-contract";
 import { IntClient } from "../../../entities/Client";
+import { ClientDTO } from "../../../dtos/ClientDTO";
 
 export class ClientRepository implements ClientRepositoryContract {
+  async getAllAccounts(): Promise<ClientDTO[]> {
+    const allClient = await prisma.client.findMany();
+
+    return allClient;
+  }
+
   async create({
     bio,
     email,
     name,
     password,
-  }: ClientRepositoryContractProps): Promise<string> {
+  }: ClientRepositoryContractProps): Promise<ClientDTO> {
     const clientResult = IntClient.create({
       bio,
       email,
@@ -19,7 +26,7 @@ export class ClientRepository implements ClientRepositoryContract {
       password,
     });
 
-    await prisma.client.create({
+    const newClient = await prisma.client.create({
       data: {
         bio: clientResult.props.bio,
         email: clientResult.props.email,
@@ -28,6 +35,6 @@ export class ClientRepository implements ClientRepositoryContract {
       },
     });
 
-    return "Account Create With Success!";
+    return newClient;
   }
 }

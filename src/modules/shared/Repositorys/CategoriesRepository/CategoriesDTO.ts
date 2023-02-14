@@ -24,4 +24,5 @@ export abstract class ICategoriesDTO {
   >;
 
   abstract findUnique(slug: string): Promise<Category | null>;
+  abstract findUniqueByName(name: string): Promise<Category | null>;
 }

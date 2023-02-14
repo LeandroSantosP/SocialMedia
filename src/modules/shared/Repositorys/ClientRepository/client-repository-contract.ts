@@ -1,3 +1,5 @@
+import { ClientDTO } from "../../dtos/ClientDTO";
+
 export interface ClientRepositoryContractProps {
   name: string;
   bio: string | null;
@@ -11,5 +13,7 @@ export abstract class ClientRepositoryContract {
     email,
     name,
     password,
-  }: ClientRepositoryContractProps): Promise<string>;
+  }: ClientRepositoryContractProps): Promise<ClientDTO>;
+
+  abstract getAllAccounts(): Promise<ClientDTO[]>;
 }

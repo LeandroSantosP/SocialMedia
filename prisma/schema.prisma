@@ -29,6 +29,8 @@ model Post {
   title             String              @unique
   visible           Boolean
   content           String?
+  IsPublished       Boolean             @default(false)
+  IsActive          Boolean             @default(true)
   created_at        DateTime            @default(now())
   updated_At        DateTime            @updatedAt
   CategoriesOnPosts CategoriesOnPosts[]
@@ -41,7 +43,7 @@ model Post {
 
 model Category {
   id                String              @id @default(uuid())
-  name              String
+  name              String              @unique
   description       String?
   slug              String              @unique
   created_at        DateTime            @default(now())

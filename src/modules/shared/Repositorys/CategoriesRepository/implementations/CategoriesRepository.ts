@@ -45,6 +45,16 @@ export class CategoriesRepository implements ICategoriesDTO {
     return categoryWithPost;
   }
 
+  async findUniqueByName(name: string): Promise<Category | null> {
+    const newName = await this.prisma.category.findUnique({
+      where: {
+        name,
+      },
+    });
+
+    return newName;
+  }
+
   async findUnique(slug: string): Promise<Category | null> {
     const newSlug = newCategories.findUnique(slug);
 
