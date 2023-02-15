@@ -29,7 +29,6 @@ export class CreatePostService {
       authorId,
       content,
     });
-    console.log(newPost);
 
     return newPost;
   }

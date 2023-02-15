@@ -3,41 +3,62 @@ import {
   ClientRepositoryContract,
   ClientRepositoryContractProps,
   GetAllPostsProps,
+  GetUniquePostOfClientProps,
 } from "../client-repository-contract";
 import {
   IntClientCreate,
   IntClientGetAllPosts,
+  IntGetPostOfClient,
 } from "../../../entities/Client";
 import { ClientDTO } from "../../../dtos/ClientDTO";
 import { PostDTO } from "../../../dtos/PostDTO";
 
 export class ClientRepository implements ClientRepositoryContract {
-  async GetAllPostsOfClient({
-    email,
-    password,
-  }: GetAllPostsProps): Promise<PostDTO[]> {
-    const allPostOfClientEntities = IntClientGetAllPosts.getAllPosts({
-      email,
-      password,
+  async GetUniquePostOfClient({
+    id,
+    postId,
+  }: GetUniquePostOfClientProps): Promise<{
+    bio: string | null;
+    name: string;
+    posts: PostDTO[];
+  } | null> {
+    const UniquePostClientsEntities = await IntGetPostOfClient.execute({
+      id,
+      postId,
     });
 
-    const allPostOfClient = await prisma.client.findMany({
+    const UniquePostClientEntities = await prisma.client.findUnique({
       where: {
-        password: allPostOfClientEntities.props.email,
-        email: allPostOfClientEntities.props.email,
+        id: UniquePostClientsEntities.props.id,
       },
       select: {
-        posts: true,
+        name: true,
+        bio: true,
+        posts: {
+          where: {
+            id: UniquePostClientsEntities.props.postId.toString(),
+          },
+        },
       },
     });
 
-    // for (let post of allPostOfClient) {
-    //   console.log(post.posts);
-    // }
+    return UniquePostClientEntities;
+  }
 
-    const FormatDataClient = allPostOfClient.map((client) => client.posts[0]);
+  async GetAllPostsOfClient({ id }: GetAllPostsProps): Promise<PostDTO[]> {
+    const allPostOfClientEntities = await IntClientGetAllPosts.execute({
+      id,
+    });
 
-    return FormatDataClient;
+    const allPostOfClient = await prisma.post.findMany({
+      where: {
+        authorId: {
+          equals: allPostOfClientEntities.props.id,
+        },
+      },
+    });
+
+    return allPostOfClient;
   }
   async getAllAccounts(): Promise<ClientDTO[]> {
     const allClient = await prisma.client.findMany();

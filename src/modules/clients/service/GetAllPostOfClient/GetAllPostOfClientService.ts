@@ -2,20 +2,15 @@ import { PostDTO } from "../../../shared/dtos/PostDTO";
 import { ClientRepository } from "../../../shared/Repositorys/ClientRepository/implemetations/ClientRepository";
 
 export interface GetAllPostOfClientServiceRequest {
-  email: string;
-  password: string;
+  id: number;
 }
 
 export class GetAllPostOfClientService {
   constructor(private ClientRepository: ClientRepository) {}
 
-  async execute({
-    email,
-    password,
-  }: GetAllPostOfClientServiceRequest): Promise<PostDTO[]> {
+  async execute({ id }: GetAllPostOfClientServiceRequest): Promise<PostDTO[]> {
     const Posts = await this.ClientRepository.GetAllPostsOfClient({
-      email,
-      password,
+      id,
     });
 
     return Posts;

@@ -9,8 +9,11 @@ export interface ClientRepositoryContractProps {
 }
 
 export interface GetAllPostsProps {
-  password: string;
-  email: string;
+  id: number;
+}
+
+export interface GetUniquePostOfClientProps extends GetAllPostsProps {
+  postId: string;
 }
 
 export abstract class ClientRepositoryContract {
@@ -23,8 +26,14 @@ export abstract class ClientRepositoryContract {
 
   abstract getAllAccounts(): Promise<ClientDTO[]>;
 
-  abstract GetAllPostsOfClient({
-    email,
-    password,
-  }: GetAllPostsProps): Promise<PostDTO[]>;
+  abstract GetAllPostsOfClient({ id }: GetAllPostsProps): Promise<PostDTO[]>;
+
+  abstract GetUniquePostOfClient({
+    id,
+    postId,
+  }: GetUniquePostOfClientProps): Promise<{
+    name: string;
+    bio: string | null;
+    posts: PostDTO[];
+  } | null>;
 }

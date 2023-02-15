@@ -4,11 +4,11 @@ import { GetAllPostOfClientService } from "./GetAllPostOfClientService";
 
 export class GetAllPostOfClientController {
   async handle(req: Request, res: Response) {
-    const { email, password } = req.body;
+    const { id } = req.params;
 
     const repository = new ClientRepository();
     const service = new GetAllPostOfClientService(repository);
-    const result = await service.execute({ email, password });
+    const result = await service.execute({ id: Number(id) });
 
     return res.json(result);
   }

@@ -5,7 +5,7 @@ import {
 import bcrypt from "bcrypt";
 import { AppError } from "../../../../errors/appErros";
 
-export class ClientService {
+export class CreateNewClientService {
   private name?: string;
 
   constructor(
