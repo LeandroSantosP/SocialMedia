@@ -22,8 +22,6 @@ export class CreateCategoriesService {
     const NameAlreadyExists =
       await this.createCategoryRepository.findUniqueByName(name);
 
-    console.log(NameAlreadyExists);
-
     if (NameAlreadyExists) {
       throw new AppError("Name Already Exists!");
     }

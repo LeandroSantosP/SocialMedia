@@ -14,8 +14,6 @@ describe("Create Challenge Category Service", () => {
       slug: "sapatos-slug",
     });
 
-    console.log(result);
-
     if (result instanceof AppError) {
     }
 

@@ -2,11 +2,43 @@ import { prisma } from "../../../../prisma/client";
 import {
   ClientRepositoryContract,
   ClientRepositoryContractProps,
+  GetAllPostsProps,
 } from "../client-repository-contract";
-import { IntClient } from "../../../entities/Client";
+import {
+  IntClientCreate,
+  IntClientGetAllPosts,
+} from "../../../entities/Client";
 import { ClientDTO } from "../../../dtos/ClientDTO";
+import { PostDTO } from "../../../dtos/PostDTO";
 
 export class ClientRepository implements ClientRepositoryContract {
+  async GetAllPostsOfClient({
+    email,
+    password,
+  }: GetAllPostsProps): Promise<PostDTO[]> {
+    const allPostOfClientEntities = IntClientGetAllPosts.getAllPosts({
+      email,
+      password,
+    });
+
+    const allPostOfClient = await prisma.client.findMany({
+      where: {
+        password: allPostOfClientEntities.props.email,
+        email: allPostOfClientEntities.props.email,
+      },
+      select: {
+        posts: true,
+      },
+    });
+
+    // for (let post of allPostOfClient) {
+    //   console.log(post.posts);
+    // }
+
+    const FormatDataClient = allPostOfClient.map((client) => client.posts[0]);
+
+    return FormatDataClient;
+  }
   async getAllAccounts(): Promise<ClientDTO[]> {
     const allClient = await prisma.client.findMany();
 
@@ -19,7 +51,7 @@ export class ClientRepository implements ClientRepositoryContract {
     name,
     password,
   }: ClientRepositoryContractProps): Promise<ClientDTO> {
-    const clientResult = IntClient.create({
+    const newClientEntities = IntClientCreate.create({
       bio,
       email,
       name,
@@ -28,10 +60,10 @@ export class ClientRepository implements ClientRepositoryContract {
 
     const newClient = await prisma.client.create({
       data: {
-        bio: clientResult.props.bio,
-        email: clientResult.props.email,
-        name: clientResult.props.name,
-        password: clientResult.props.email,
+        bio: newClientEntities.props.bio,
+        email: newClientEntities.props.email,
+        name: newClientEntities.props.name,
+        password: newClientEntities.props.password,
       },
     });
 

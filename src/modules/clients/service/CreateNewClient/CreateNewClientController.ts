@@ -8,8 +8,6 @@ export class CrateNewClientController {
 
     const { name, email, password, bio } = req.body;
 
-    console.log(name, email, password, bio);
-
     const repository = new ClientRepository();
 
     const Service = new ClientService(repository);

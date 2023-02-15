@@ -1,13 +1,21 @@
-import { ClientRepositoryContractProps } from "../../../shared/Repositorys/ClientRepository/client-repository-contract";
-import { ClientRepository } from "../../../shared/Repositorys/ClientRepository/implemetations/ClientRepository";
+import {
+  ClientRepositoryContract,
+  ClientRepositoryContractProps,
+} from "../../../shared/Repositorys/ClientRepository/client-repository-contract";
 import bcrypt from "bcrypt";
 import { AppError } from "../../../../errors/appErros";
 
 export class ClientService {
-  constructor(private createClientRepository: ClientRepository) {}
+  private name?: string;
+
+  constructor(
+    private createClientRepository: ClientRepositoryContract,
+    name?: string
+  ) {
+    this.name = name;
+  }
 
   async execute({ email, name, password, bio }: ClientRepositoryContractProps) {
-    const hashPassword = await bcrypt.hash(password, 9);
     const allClients = await this.createClientRepository.getAllAccounts();
 
     const ClientAlreadyExists = allClients.some(
@@ -15,8 +23,9 @@ export class ClientService {
     );
 
     if (ClientAlreadyExists) {
-      return new AppError("Email already Exists!");
+      throw new AppError("Email already Exists!");
     }
+    const hashPassword = await bcrypt.hash(password, 9);
 
     const result = await this.createClientRepository.create({
       bio,
