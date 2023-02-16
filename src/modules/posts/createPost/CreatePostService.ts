@@ -1,4 +1,5 @@
-import { AppError } from "../../../errors/appErros";
+import { AppError } from "../../../middlewares/appErros";
+import { prisma } from "../../prisma/client";
 import { PostDTO } from "../../shared/dtos/PostDTO";
 import { IPostContract } from "../../shared/Repositorys/PostRepository/create-post-contract";
 

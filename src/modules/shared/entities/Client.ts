@@ -1,4 +1,4 @@
-import { AppError } from "../../../errors/appErros";
+import { AppError } from "../../../middlewares/appErros";
 import { prisma } from "../../prisma/client";
 import { Entity } from "../core/Entity";
 import { GetUniquePostOfClientProps } from "../Repositorys/ClientRepository/client-repository-contract";

@@ -1,5 +1,5 @@
 import { inject, injectable } from "tsyringe";
-import { AppError } from "../../../errors/appErros";
+import { AppError } from "../../../middlewares/appErros";
 import { ClientRepositoryContract } from "../../shared/Repositorys/ClientRepository/client-repository-contract";
 import { sign } from "jsonwebtoken";
 import { compare } from "bcrypt";
@@ -25,18 +25,17 @@ class AuthenticationClientService {
   ) {}
 
   async execute({ email, password }: IRequest): Promise<IResponse> {
-    console.log(email, password);
     const user = await this.ClientRepository.GetClientByEmail(email);
 
     if (!user) {
-      throw new AppError("Email or Password Incorrect!!");
+      throw new AppError("Email or Password Incorrect!!", 401);
     }
     //Senha esta correta
 
     const passwordMatch = await compare(password, user.password);
 
     if (!passwordMatch) {
-      throw new AppError("Email or Password Incorrect!!");
+      throw new AppError("Email or Password Incorrect!!", 401);
     }
     //Gerar um jsonwebtoken
 

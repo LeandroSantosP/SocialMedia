@@ -1,5 +1,5 @@
 import { inject, injectable } from "tsyringe";
-import { AppError } from "../../../errors/appErros";
+import { AppError } from "../../../middlewares/appErros";
 import { ICategoriesContract } from "../../shared/Repositorys/CategoriesRepository/categories-repository-contract";
 
 export type CreateCategoriesDTO = {

@@ -13,6 +13,7 @@ export class PostRepository implements IPostContract {
 
   async getAllPost(): Promise<
     {
+      id: string;
       title: string;
       visible: boolean;
       content: string | null;
@@ -30,10 +31,12 @@ export class PostRepository implements IPostContract {
   > {
     const allPosts = await this.prisma.post.findMany({
       select: {
+        id: true,
         title: true,
         visible: true,
         created_at: true,
         content: true,
+        comments: true,
         CategoriesOnPosts: {
           select: {
             category: {
@@ -47,6 +50,7 @@ export class PostRepository implements IPostContract {
           select: {
             name: true,
             id: true,
+            IsAdmin: true,
           },
         },
       },

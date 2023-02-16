@@ -9,6 +9,7 @@ export abstract class IPostContract {
 
   abstract getAllPost(): Promise<
     {
+      id: string;
       title: string;
       visible: boolean;
       content: string | null;

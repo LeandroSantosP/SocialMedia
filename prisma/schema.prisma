@@ -20,7 +20,9 @@ model Client {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  posts     Post[]
+
+  posts    Post[]
+  Comments Comment[]
 
   @@map("clients")
 }
@@ -36,10 +38,28 @@ model Post {
   updated_At        DateTime            @updatedAt
   CategoriesOnPosts CategoriesOnPosts[]
 
-  author   Client @relation(fields: [authorId], references: [id])
-  authorId Int    @default(autoincrement())
+  author   Client    @relation(fields: [authorId], references: [id])
+  authorId Int       @default(autoincrement())
+  comments Comment[]
 
   @@map("posts")
+}
+
+model Comment {
+  id         String @id @default(uuid())
+  authorName String
+  comment    String
+
+  post   Post   @relation(fields: [postId], references: [id])
+  postId String
+
+  author   Client @relation(fields: [authorId], references: [id])
+  authorId Int
+
+  created_at DateTime @default(now())
+  updated_At DateTime @updatedAt
+
+  @@map("comments")
 }
 
 model Category {

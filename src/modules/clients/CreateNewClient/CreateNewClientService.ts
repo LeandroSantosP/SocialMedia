@@ -3,7 +3,7 @@ import {
   ClientRepositoryContractProps,
 } from "../../shared/Repositorys/ClientRepository/client-repository-contract";
 import bcrypt from "bcrypt";
-import { AppError } from "../../../errors/appErros";
+import { AppError } from "../../../middlewares/appErros";
 
 export class CreateNewClientService {
   private name?: string;

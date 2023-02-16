@@ -13,7 +13,7 @@ export class GetAllPostOfClientService {
     private ClientRepository: ClientRepositoryContract
   ) {}
 
-  async execute({ id }: GetAllPostOfClientServiceRequest): Promise<PostDTO[]> {
+  async execute({ id }: GetAllPostOfClientServiceRequest) {
     const Posts = await this.ClientRepository.GetAllPostsOfClient({
       id,
     });

@@ -1,3 +1,4 @@
+import { prisma } from "../../prisma/client";
 import {
   ClientRepositoryContract,
   GetUniquePostOfClientProps,

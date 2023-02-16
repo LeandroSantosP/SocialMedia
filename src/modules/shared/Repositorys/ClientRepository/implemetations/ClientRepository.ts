@@ -12,8 +12,19 @@ import {
 } from "../../../entities/Client";
 import { ClientDTO } from "../../../dtos/ClientDTO";
 import { PostDTO } from "../../../dtos/PostDTO";
+import { CommentDTO } from "../../../dtos/CommentsDTO";
+import { triggerAsyncId } from "async_hooks";
 
 export class ClientRepository implements ClientRepositoryContract {
+  async GetClientById(id: number): Promise<ClientDTO | null> {
+    const client = await prisma.client.findFirst({
+      where: {
+        id,
+      },
+    });
+
+    return client;
+  }
   async GetClientByEmail(email: string): Promise<ClientDTO | null> {
     const user = await prisma.client.findFirst({
       where: {
@@ -35,6 +46,13 @@ export class ClientRepository implements ClientRepositoryContract {
       content: string | null;
       visible: boolean;
       created_at: Date;
+      comments: {
+        id: string;
+        created_at: Date;
+        authorName: string;
+        comment: string;
+        authorId: number;
+      }[];
     }[];
   } | null> {
     const UniquePostClientsEntities = await IntGetPostOfClient.execute({
@@ -59,6 +77,15 @@ export class ClientRepository implements ClientRepositoryContract {
             content: true,
             visible: true,
             created_at: true,
+            comments: {
+              select: {
+                id: true,
+                authorName: true,
+                comment: true,
+                authorId: true,
+                created_at: true,
+              },
+            },
           },
         },
       },
@@ -67,7 +94,24 @@ export class ClientRepository implements ClientRepositoryContract {
     return UniquePostClientEntities;
   }
 
-  async GetAllPostsOfClient({ id }: GetAllPostsProps): Promise<PostDTO[]> {
+  async GetAllPostsOfClient({ id }: GetAllPostsProps): Promise<
+    {
+      id: string;
+      title: string;
+      content: string | null;
+      created_at: Date;
+      comments: {
+        id: string;
+        created_at: Date;
+        authorName: string;
+        comment: string;
+        authorId: number;
+      }[];
+      IsPublished: boolean;
+      IsActive: boolean;
+      updated_At: Date;
+    }[]
+  > {
     const allPostOfClientEntities = await IntClientGetAllPosts.execute({
       id,
     });
@@ -76,6 +120,24 @@ export class ClientRepository implements ClientRepositoryContract {
       where: {
         authorId: {
           equals: allPostOfClientEntities.props.id,
+        },
+      },
+      select: {
+        id: true,
+        title: true,
+        content: true,
+        IsPublished: true,
+        IsActive: true,
+        created_at: true,
+        updated_At: true,
+        comments: {
+          select: {
+            id: true,
+            authorName: true,
+            comment: true,
+            authorId: true,
+            created_at: true,
+          },
         },
       },
     });
