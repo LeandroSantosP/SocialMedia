@@ -100,6 +100,7 @@ export class ClientRepository implements ClientRepositoryContract {
       title: string;
       content: string | null;
       created_at: Date;
+      authorId: number;
       comments: {
         id: string;
         created_at: Date;
@@ -116,6 +117,8 @@ export class ClientRepository implements ClientRepositoryContract {
       id,
     });
 
+    console.log(allPostOfClientEntities);
+
     const allPostOfClient = await prisma.post.findMany({
       where: {
         authorId: {
@@ -129,6 +132,7 @@ export class ClientRepository implements ClientRepositoryContract {
         IsPublished: true,
         IsActive: true,
         created_at: true,
+        authorId: true,
         updated_At: true,
         comments: {
           select: {

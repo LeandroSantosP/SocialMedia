@@ -10,6 +10,17 @@ export class PostRepository implements IPostContract {
   constructor() {
     this.prisma = prisma;
   }
+  async delete(id: string): Promise<void> {
+    const postDeleted = await this.prisma.post.delete({
+      where: {
+        id,
+      },
+    });
+
+    console.log(postDeleted);
+
+    return;
+  }
 
   async getAllPost(): Promise<
     {

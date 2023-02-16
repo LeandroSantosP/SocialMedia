@@ -33,6 +33,7 @@ export abstract class ClientRepositoryContract {
       title: string;
       content: string | null;
       created_at: Date;
+      authorId: number;
       comments: {
         id: string;
         created_at: Date;

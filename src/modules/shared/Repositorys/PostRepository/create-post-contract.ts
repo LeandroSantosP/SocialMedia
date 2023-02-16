@@ -31,4 +31,6 @@ export abstract class IPostContract {
     visible,
     content,
   }: CreatePostProps): Promise<PostDTO>;
+
+  abstract delete(id: string): Promise<void>;
 }

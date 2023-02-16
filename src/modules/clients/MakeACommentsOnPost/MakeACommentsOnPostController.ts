@@ -4,10 +4,10 @@ import { container } from "tsyringe";
 import { MakeACommentsOnPostService } from "./MakeACommentsOnPostService";
 
 export class MakeACommentOnPostController {
-  async handle(as: any, req: Request, res: Response): Promise<Response> {
+  async handle(req: Request, res: Response): Promise<Response> {
     const { authorId, authorName, comment, postId } = req.body;
 
-    console.log(as);
+    console.log(authorId);
 
     const repository = container.resolve(MakeACommentsOnPostService);
 

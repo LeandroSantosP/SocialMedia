@@ -5,9 +5,14 @@ import {
   IRequestCreateComment,
 } from "../comment-repository-contract";
 
-export class CommentsRepository extends CommentsRepositoryContract {
+export class CommentsRepository implements CommentsRepositoryContract {
+  private prisma;
+
+  constructor() {
+    this.prisma = prisma;
+  }
   async GetAllComments(): Promise<CommentDTO[]> {
-    const allComments = await prisma.comment.findMany();
+    const allComments = await this.prisma.comment.findMany();
 
     return allComments;
   }
@@ -17,7 +22,7 @@ export class CommentsRepository extends CommentsRepositoryContract {
     comment,
     postId,
   }: IRequestCreateComment): Promise<void> {
-    await prisma.comment.create({
+    await this.prisma.comment.create({
       data: {
         authorName,
         comment,
