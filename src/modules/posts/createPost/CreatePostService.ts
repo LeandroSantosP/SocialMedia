@@ -1,6 +1,6 @@
-import { AppError } from "../../../../errors/appErros";
-import { PostDTO } from "../../../shared/dtos/PostDTO";
-import { IPostDTO } from "../../../shared/Repositorys/PostRepository/create-post-contract";
+import { AppError } from "../../../errors/appErros";
+import { PostDTO } from "../../shared/dtos/PostDTO";
+import { IPostContract } from "../../shared/Repositorys/PostRepository/create-post-contract";
 
 export type CreatePostServiceDTO = {
   title: string;
@@ -10,7 +10,7 @@ export type CreatePostServiceDTO = {
 };
 
 export class CreatePostService {
-  constructor(private createPostRepository: IPostDTO) {}
+  constructor(private createPostRepository: IPostContract) {}
   async execute({
     title,
     visible,

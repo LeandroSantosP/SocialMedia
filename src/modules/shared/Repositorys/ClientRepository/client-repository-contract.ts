@@ -28,6 +28,8 @@ export abstract class ClientRepositoryContract {
 
   abstract GetAllPostsOfClient({ id }: GetAllPostsProps): Promise<PostDTO[]>;
 
+  abstract GetClientByEmail(email: string): Promise<ClientDTO | null>;
+
   abstract GetUniquePostOfClient({
     id,
     postId,

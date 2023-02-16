@@ -1,7 +1,8 @@
 import { Router } from "express";
-import { CrateNewClientController } from "../modules/clients/service/CreateNewClient/CreateNewClientController";
-import { GetAllPostOfClientController } from "../modules/clients/service/GetAllPostOfClient/GetAllPostOfClientController";
-import { GetUniquePostOfClientController } from "../modules/clients/service/GetUniquePostOfClient/GetUniquePostOfClientController";
+import { AuthenticationClientController } from "../modules/clients/AuthenticationClient/AuthenticationClientController";
+import { CrateNewClientController } from "../modules/clients/CreateNewClient/CreateNewClientController";
+import { GetAllPostOfClientController } from "../modules/clients/GetAllPostOfClient/GetAllPostOfClientController";
+import { GetUniquePostOfClientController } from "../modules/clients/GetUniquePostOfClient/GetUniquePostOfClientController";
 
 const crateNewClientController = new CrateNewClientController();
 const getAllPostOfClientController = new GetAllPostOfClientController();

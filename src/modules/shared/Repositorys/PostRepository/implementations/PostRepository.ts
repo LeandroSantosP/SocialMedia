@@ -1,11 +1,12 @@
 import { prisma } from "../../../../prisma/client";
 import { IPostContract } from "../create-post-contract";
-import { Post as PostEnt } from "../../../entities/Post";
-import { Post } from "@prisma/client";
+import { Post } from "../../../entities/Post";
 import { CreatePostProps } from "../../../entities/Post";
+import { PostDTO } from "../../../dtos/PostDTO";
 
 export class PostRepository implements IPostContract {
   private prisma;
+
   constructor() {
     this.prisma = prisma;
   }
@@ -54,7 +55,7 @@ export class PostRepository implements IPostContract {
     return allPosts;
   }
 
-  async findBySlug(title: string): Promise<Post | null> {
+  async findBySlug(title: string): Promise<PostDTO | null> {
     const post = await this.prisma.post.findUnique({
       where: {
         title,
@@ -64,7 +65,7 @@ export class PostRepository implements IPostContract {
   }
 
   async create({ title, visible, authorId, content }: CreatePostProps) {
-    const newPost = PostEnt.create({
+    const newPost = Post.create({
       title,
       visible,
       authorId,

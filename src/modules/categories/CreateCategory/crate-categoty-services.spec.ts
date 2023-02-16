@@ -1,7 +1,7 @@
 import { describe } from "node:test";
 import { CreateCategoriesService } from "./CreateCategoriesService";
-import { CategoriesRepository } from "../../../shared/Repositorys/CategoriesRepository/implementations/CategoriesRepository";
-import { AppError } from "../../../../errors/appErros";
+import { CategoriesRepository } from "../../shared/Repositorys/CategoriesRepository/implementations/CategoriesRepository";
+import { AppError } from "../../../errors/appErros";
 
 describe("Create Challenge Category Service", () => {
   it("should be able create a new category", async () => {

@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { ClientRepository } from "../../../shared/Repositorys/ClientRepository/implemetations/ClientRepository";
+import { ClientRepository } from "../../shared/Repositorys/ClientRepository/implemetations/ClientRepository";
 import { CreateNewClientService } from "./CreateNewClientService";
 
 export class CrateNewClientController {

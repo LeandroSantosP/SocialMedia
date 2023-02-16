@@ -1,7 +1,7 @@
 import {
   ClientRepositoryContract,
   GetUniquePostOfClientProps,
-} from "../../../shared/Repositorys/ClientRepository/client-repository-contract";
+} from "../../shared/Repositorys/ClientRepository/client-repository-contract";
 
 export class GetUniquePostOfClientService {
   constructor(private ClientRepository: ClientRepositoryContract) {}

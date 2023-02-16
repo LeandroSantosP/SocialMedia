@@ -1,6 +1,6 @@
 import { Router } from "express";
-import { CreatePostController } from "../modules/posts/services/createPost/CreatePostController";
-import { GetAllPostController } from "../modules/posts/services/getAllPosts/GetAllPostsController";
+import { CreatePostController } from "../modules/posts/createPost/CreatePostController";
+import { GetAllPostController } from "../modules/posts/getAllPosts/GetAllPostsController";
 
 const createPostController = new CreatePostController();
 const getAllPostController = new GetAllPostController();

@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { PostRepository } from "../../../shared/Repositorys/PostRepository/implementations/PostRepository";
+import { PostRepository } from "../../shared/Repositorys/PostRepository/implementations/PostRepository";
 
 export class GetAllPostController {
   async handle(req: Request, res: Response) {

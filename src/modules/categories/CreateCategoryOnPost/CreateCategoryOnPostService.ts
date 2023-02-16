@@ -1,6 +1,6 @@
 import { inject, injectable } from "tsyringe";
-import { AppError } from "../../../../errors/appErros";
-import { CategoryOnPostContract } from "../../../shared/Repositorys/CreateCategoryOnPostDService.ts/categoryonpost-repository-contract";
+import { AppError } from "../../../errors/appErros";
+import { CategoryOnPostContract } from "../../shared/Repositorys/CreateCategoryOnPostDService.ts/categoryonpost-repository-contract";
 
 export type CreateCategoryOnPostDTO = {
   postId: string;

@@ -1,4 +1,4 @@
-import { PostRepository } from "../../../shared/Repositorys/PostRepository/implementations/PostRepository";
+import { PostRepository } from "../../shared/Repositorys/PostRepository/implementations/PostRepository";
 
 export class GetAllPostService {
   constructor(private PostRepository: PostRepository) {}

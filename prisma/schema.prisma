@@ -16,6 +16,7 @@ model Client {
   password String
   email    String  @unique
   bio      String?
+  IsAdmin  Boolean @default(false)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

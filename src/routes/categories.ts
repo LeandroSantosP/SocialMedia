@@ -1,7 +1,7 @@
 import { Router } from "express";
-import { CreateCategoriesController } from "../modules/categories/service/CreateCategory/CreateCategoriesController";
-import { CreateCategoryOnPostController } from "../modules/categories/service/CreateCategoryOnPost/CreateCategoryOnPostController";
-import { GetAllCategoriesController } from "../modules/categories/service/getAllCategories/GetAllCategoryController";
+import { CreateCategoriesController } from "../modules/categories/CreateCategory/CreateCategoriesController";
+import { CreateCategoryOnPostController } from "../modules/categories/CreateCategoryOnPost/CreateCategoryOnPostController";
+import { GetAllCategoriesController } from "../modules/categories/getAllCategories/GetAllCategoryController";
 
 const crateCategoryController = new CreateCategoriesController();
 const createCategoryOnPostController = new CreateCategoryOnPostController();

@@ -14,6 +14,15 @@ import { ClientDTO } from "../../../dtos/ClientDTO";
 import { PostDTO } from "../../../dtos/PostDTO";
 
 export class ClientRepository implements ClientRepositoryContract {
+  async GetClientByEmail(email: string): Promise<ClientDTO | null> {
+    const user = await prisma.client.findFirst({
+      where: {
+        email,
+      },
+    });
+
+    return user;
+  }
   async GetUniquePostOfClient({
     id,
     postId,
