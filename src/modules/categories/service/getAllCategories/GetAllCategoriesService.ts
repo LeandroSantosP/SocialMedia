@@ -1,7 +1,7 @@
-import { ICategoriesDTO } from "../../../shared/Repositorys/CategoriesRepository/CategoriesDTO";
+import { ICategoriesContract } from "../../../shared/Repositorys/CategoriesRepository/categories-repository-contract";
 
 export class GetAllCategoriesService {
-  constructor(private GetAllCategoriesRepository: ICategoriesDTO) {}
+  constructor(private GetAllCategoriesRepository: ICategoriesContract) {}
 
   async execute() {
     const AllCategoriesWithPost =

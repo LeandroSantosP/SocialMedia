@@ -1,6 +1,6 @@
 import { AppError } from "../../../../errors/appErros";
 import { PostDTO } from "../../../shared/dtos/PostDTO";
-import { IPostDTO } from "../../../shared/Repositorys/PostRepository/CreatePostDTO";
+import { IPostDTO } from "../../../shared/Repositorys/PostRepository/create-post-contract";
 
 export type CreatePostServiceDTO = {
   title: string;

@@ -1,9 +1,12 @@
 import { Category } from "@prisma/client";
 import { prisma } from "../../../../prisma/client";
 import { Category as newCategories } from "../../../entities/Category";
-import { CreateNewCategoryDTO, ICategoriesDTO } from "../CategoriesDTO";
+import {
+  CreateNewCategoryDTO,
+  ICategoriesContract,
+} from "../categories-repository-contract";
 
-export class CategoriesRepository implements ICategoriesDTO {
+export class CategoriesRepository implements ICategoriesContract {
   private prisma;
 
   constructor() {

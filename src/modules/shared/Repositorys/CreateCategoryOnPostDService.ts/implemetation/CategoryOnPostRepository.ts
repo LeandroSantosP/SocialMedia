@@ -1,12 +1,10 @@
-import { ContractCategoryOnPostRepository } from "../categoryonpost-repository-contract";
+import { CategoryOnPostContract } from "../categoryonpost-repository-contract";
 import { prisma } from "../../../../prisma/client";
 import { CategoryOnPost } from "../../../entities/CategoryOnPost";
 import { CategoryDTO } from "../../../dtos/CategoryDTO";
 import { PostDTO } from "../../../dtos/PostDTO";
 
-export class CategoryOnPostRepository
-  implements ContractCategoryOnPostRepository
-{
+export class CategoryOnPostRepository implements CategoryOnPostContract {
   async CategoryExist(categoryId: string): Promise<CategoryDTO | null> {
     const categoryExists = await prisma.category.findUnique({
       where: {

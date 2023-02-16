@@ -1,13 +1,12 @@
 import { Request, Response } from "express";
-import { CategoriesRepository } from "../../../shared/Repositorys/CategoriesRepository/implementations/CategoriesRepository";
+import { container } from "tsyringe";
 import { CreateCategoriesService } from "./CreateCategoriesService";
 
 export class CreateCategoriesController {
   async handle(req: Request, res: Response) {
     const { name, description, slug } = req.body;
 
-    const repository = new CategoriesRepository();
-    const service = new CreateCategoriesService(repository);
+    const service = container.resolve(CreateCategoriesService);
 
     const result = await service.execute({ description, name, slug });
 

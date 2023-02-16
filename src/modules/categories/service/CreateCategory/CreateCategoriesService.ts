@@ -1,5 +1,6 @@
+import { inject, injectable } from "tsyringe";
 import { AppError } from "../../../../errors/appErros";
-import { ICategoriesDTO } from "../../../shared/Repositorys/CategoriesRepository/CategoriesDTO";
+import { ICategoriesContract } from "../../../shared/Repositorys/CategoriesRepository/categories-repository-contract";
 
 export type CreateCategoriesDTO = {
   name: string;
@@ -7,8 +8,12 @@ export type CreateCategoriesDTO = {
   slug: string;
 };
 
+@injectable()
 export class CreateCategoriesService {
-  constructor(private createCategoryRepository: ICategoriesDTO) {}
+  constructor(
+    @inject("CategoriesRepository")
+    private createCategoryRepository: ICategoriesContract
+  ) {}
 
   async execute({ description, name, slug }: CreateCategoriesDTO) {
     const SlugAlreadyExists = await this.createCategoryRepository.findUnique(

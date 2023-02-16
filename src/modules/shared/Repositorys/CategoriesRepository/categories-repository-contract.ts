@@ -6,7 +6,7 @@ export interface CreateNewCategoryDTO {
   slug: string;
 }
 
-export abstract class ICategoriesDTO {
+export abstract class ICategoriesContract {
   abstract create(dados: CreateNewCategoryDTO): Promise<Category>;
   abstract list(): Promise<Category[]>;
 

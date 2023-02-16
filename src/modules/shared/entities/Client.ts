@@ -34,6 +34,10 @@ async function ClientExits(id: number): Promise<null | number> {
     }
   });
 
+  if (userID === null) {
+    throw new AppError("Client Id does not exits!");
+  }
+
   return userID;
 }
 
@@ -43,11 +47,7 @@ export class IntClientGetAllPosts extends Entity<GetAllPostsProps> {
   }
 
   static async execute(props: GetAllPostsProps) {
-    const clientExits = await ClientExits(props.id);
-
-    if (clientExits === null) {
-      throw new AppError("Client Id Invalid");
-    }
+    await ClientExits(props.id);
 
     const category = new IntClientGetAllPosts(props);
     return category;
@@ -60,11 +60,7 @@ export class IntGetPostOfClient extends Entity<GetUniquePostOfClientProps> {
   }
 
   static async execute(props: GetUniquePostOfClientProps) {
-    const clientExits = await ClientExits(props.id);
-
-    if (clientExits === null) {
-      throw new AppError("Client Id Invalid");
-    }
+    await ClientExits(props.id);
 
     const Posts = new IntGetPostOfClient(props);
 

@@ -1,14 +1,17 @@
+import { inject, injectable } from "tsyringe";
 import { AppError } from "../../../../errors/appErros";
-import { ContractCategoryOnPostRepository } from "../../../shared/Repositorys/CreateCategoryOnPostDService.ts/categoryonpost-repository-contract";
+import { CategoryOnPostContract } from "../../../shared/Repositorys/CreateCategoryOnPostDService.ts/categoryonpost-repository-contract";
 
 export type CreateCategoryOnPostDTO = {
   postId: string;
   categoryId: string;
 };
 
+@injectable()
 export class CreateCategoryOnPostService {
   constructor(
-    private CategoryOnPostRepository: ContractCategoryOnPostRepository
+    @inject("CategoryOnPostRepository")
+    private CategoryOnPostRepository: CategoryOnPostContract
   ) {}
 
   async execute({

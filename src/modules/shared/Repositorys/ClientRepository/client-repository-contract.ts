@@ -32,8 +32,14 @@ export abstract class ClientRepositoryContract {
     id,
     postId,
   }: GetUniquePostOfClientProps): Promise<{
+    id: number;
     name: string;
     bio: string | null;
-    posts: PostDTO[];
+    posts: {
+      title: string;
+      content: string | null;
+      visible: boolean;
+      created_at: Date;
+    }[];
   } | null>;
 }

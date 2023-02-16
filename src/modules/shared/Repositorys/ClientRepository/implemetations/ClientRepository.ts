@@ -18,9 +18,15 @@ export class ClientRepository implements ClientRepositoryContract {
     id,
     postId,
   }: GetUniquePostOfClientProps): Promise<{
-    bio: string | null;
+    id: number;
     name: string;
-    posts: PostDTO[];
+    bio: string | null;
+    posts: {
+      title: string;
+      content: string | null;
+      visible: boolean;
+      created_at: Date;
+    }[];
   } | null> {
     const UniquePostClientsEntities = await IntGetPostOfClient.execute({
       id,
@@ -34,9 +40,16 @@ export class ClientRepository implements ClientRepositoryContract {
       select: {
         name: true,
         bio: true,
+        id: true,
         posts: {
           where: {
             id: UniquePostClientsEntities.props.postId.toString(),
+          },
+          select: {
+            title: true,
+            content: true,
+            visible: true,
+            created_at: true,
           },
         },
       },

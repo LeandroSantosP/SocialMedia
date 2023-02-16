@@ -8,7 +8,6 @@ export class GetAllCategoriesController {
     const service = new GetAllCategoriesService(repository);
 
     const result = await service.execute();
-    console.log(result);
 
     return res.status(201).json(result);
   }

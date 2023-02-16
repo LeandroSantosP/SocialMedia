@@ -4,7 +4,7 @@ export interface findBySlugProps {
   title: string;
 }
 
-export abstract class IPostDTO {
+export abstract class IPostContract {
   abstract findBySlug(slug: string): Promise<PostDTO | null>;
 
   abstract getAllPost(): Promise<

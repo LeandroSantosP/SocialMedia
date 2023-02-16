@@ -1,10 +1,10 @@
 import { prisma } from "../../../../prisma/client";
-import { IPostDTO } from "../CreatePostDTO";
+import { IPostContract } from "../create-post-contract";
 import { Post as PostEnt } from "../../../entities/Post";
 import { Post } from "@prisma/client";
 import { CreatePostProps } from "../../../entities/Post";
 
-export class PostRepository implements IPostDTO {
+export class PostRepository implements IPostContract {
   private prisma;
   constructor() {
     this.prisma = prisma;
