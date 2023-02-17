@@ -8,35 +8,34 @@ datasource db {
 }
 
 model Client {
-  id        Int       @id @default(autoincrement())
-  name      String
-  email     String    @unique
-  bio       String?
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  password  String
-  IsAdmin   Boolean   @default(false)
-  Comments  Comment[]
-  posts     Post[]
+  id         Int       @id @default(autoincrement())
+  name       String
+  email      String    @unique
+  bio        String?
+  createdAt  DateTime  @default(now())
+  avatar_url String?
+  updatedAt  DateTime  @updatedAt
+  password   String
+  IsAdmin    Boolean   @default(false)
+  Comments   Comment[]
+  posts      Post[]
 
   @@map("clients")
 }
 
 model Post {
-  id          String   @id @default(uuid())
-  title       String   @unique
-  visible     Boolean
-  created_at  DateTime @default(now())
-  updated_At  DateTime @updatedAt
-  content     String?
-  IsActive    Boolean  @default(true)
-  IsPublished Boolean  @default(false)
-
+  id                String              @id @default(uuid())
+  title             String              @unique
+  visible           Boolean
+  created_at        DateTime            @default(now())
+  updated_At        DateTime            @updatedAt
+  authorId          Int                 @default(autoincrement())
+  content           String?
+  IsActive          Boolean             @default(true)
+  IsPublished       Boolean             @default(false)
   CategoriesOnPosts CategoriesOnPosts[]
   comments          Comment[]
-
-  author   Client @relation(fields: [authorId], references: [id], onDelete: Cascade)
-  authorId Int    @default(autoincrement())
+  author            Client              @relation(fields: [authorId], references: [id], onDelete: Cascade)
 
   @@map("posts")
 }
@@ -47,11 +46,10 @@ model Comment {
   comment    String
   created_at DateTime @default(now())
   updated_At DateTime @updatedAt
-
-  author   Client @relation(fields: [authorId], references: [id], onDelete: Cascade)
-  post     Post   @relation(fields: [postId], references: [id], onDelete: Cascade)
-  postId   String
-  authorId Int
+  postId     String
+  authorId   Int
+  author     Client   @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  post       Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
 
   @@map("comments")
 }

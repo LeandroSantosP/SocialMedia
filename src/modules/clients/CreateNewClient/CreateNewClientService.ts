@@ -15,7 +15,13 @@ export class CreateNewClientService {
     this.name = name;
   }
 
-  async execute({ email, name, password, bio }: ClientRepositoryContractProps) {
+  async execute({
+    email,
+    name,
+    password,
+    bio,
+    avatar_url,
+  }: ClientRepositoryContractProps) {
     const allClients = await this.createClientRepository.getAllAccounts();
 
     const ClientAlreadyExists = allClients.some(
@@ -32,6 +38,7 @@ export class CreateNewClientService {
       email,
       name,
       password: hashPassword,
+      avatar_url,
     });
 
     const { password: _, ...ClientInfos } = result;

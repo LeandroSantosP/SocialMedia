@@ -1,12 +1,11 @@
 import { ClientDTO } from "../../dtos/ClientDTO";
-import { CommentDTO } from "../../dtos/CommentsDTO";
-import { PostDTO } from "../../dtos/PostDTO";
 
 export interface ClientRepositoryContractProps {
   name: string;
   bio: string | null;
   email: string;
   password: string;
+  avatar_url: string | null;
 }
 
 export interface GetAllPostsProps {
@@ -23,6 +22,7 @@ export abstract class ClientRepositoryContract {
     email,
     name,
     password,
+    avatar_url,
   }: ClientRepositoryContractProps): Promise<ClientDTO>;
 
   abstract getAllAccounts(): Promise<ClientDTO[]>;
@@ -71,4 +71,9 @@ export abstract class ClientRepositoryContract {
       }[];
     }[];
   } | null>;
+
+  abstract updatedClientAvatar(
+    avatarRef: string | null,
+    userId: number
+  ): Promise<void>;
 }

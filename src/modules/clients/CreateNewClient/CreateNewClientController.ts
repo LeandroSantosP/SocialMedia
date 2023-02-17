@@ -4,14 +4,17 @@ import { CreateNewClientService } from "./CreateNewClientService";
 
 export class CrateNewClientController {
   async handle(req: Request, res: Response) {
-    console.log("ok");
-
-    const { name, email, password, bio } = req.body;
-    const { id } = req.params;
+    const { name, email, password, bio, avatar_url } = req.body;
     const repository = new ClientRepository();
 
     const Service = new CreateNewClientService(repository);
-    const result = await Service.execute({ bio, email, name, password });
+    const result = await Service.execute({
+      bio,
+      email,
+      name,
+      password,
+      avatar_url,
+    });
 
     return res.status(201).json(result);
   }

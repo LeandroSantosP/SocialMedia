@@ -1,9 +1,13 @@
+import { Client } from "@prisma/client";
+
 export type ClientDTO = {
   id: number;
   name: string;
-  password: string;
   email: string;
   bio: string | null;
   createdAt: Date;
+  avatar_url: string | null;
   updatedAt: Date;
+  password: string;
+  IsAdmin: boolean;
 };

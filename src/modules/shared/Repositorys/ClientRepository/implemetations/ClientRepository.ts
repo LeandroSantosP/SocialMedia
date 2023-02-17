@@ -11,13 +11,31 @@ import {
   IntGetPostOfClient,
 } from "../../../entities/Client";
 import { ClientDTO } from "../../../dtos/ClientDTO";
-import { PostDTO } from "../../../dtos/PostDTO";
-import { CommentDTO } from "../../../dtos/CommentsDTO";
-import { triggerAsyncId } from "async_hooks";
 
 export class ClientRepository implements ClientRepositoryContract {
+  private prisma;
+  constructor() {
+    this.prisma = prisma;
+  }
+
+  async updatedClientAvatar(
+    avatarRef: string | null,
+    userId: number
+  ): Promise<void> {
+    await this.prisma.client.update({
+      where: {
+        id: userId,
+      },
+      data: {
+        avatar_url: avatarRef,
+      },
+    });
+
+    return;
+  }
+
   async GetClientById(id: number): Promise<ClientDTO | null> {
-    const client = await prisma.client.findFirst({
+    const client = await this.prisma.client.findFirst({
       where: {
         id,
       },
@@ -26,7 +44,7 @@ export class ClientRepository implements ClientRepositoryContract {
     return client;
   }
   async GetClientByEmail(email: string): Promise<ClientDTO | null> {
-    const user = await prisma.client.findFirst({
+    const user = await this.prisma.client.findFirst({
       where: {
         email,
       },
@@ -60,7 +78,7 @@ export class ClientRepository implements ClientRepositoryContract {
       postId,
     });
 
-    const UniquePostClientEntities = await prisma.client.findUnique({
+    const UniquePostClientEntities = await this.prisma.client.findUnique({
       where: {
         id: UniquePostClientsEntities.props.id,
       },
@@ -117,9 +135,7 @@ export class ClientRepository implements ClientRepositoryContract {
       id,
     });
 
-    console.log(allPostOfClientEntities);
-
-    const allPostOfClient = await prisma.post.findMany({
+    const allPostOfClient = await this.prisma.post.findMany({
       where: {
         authorId: {
           equals: allPostOfClientEntities.props.id,
@@ -149,7 +165,7 @@ export class ClientRepository implements ClientRepositoryContract {
     return allPostOfClient;
   }
   async getAllAccounts(): Promise<ClientDTO[]> {
-    const allClient = await prisma.client.findMany();
+    const allClient = await this.prisma.client.findMany();
 
     return allClient;
   }
@@ -159,20 +175,23 @@ export class ClientRepository implements ClientRepositoryContract {
     email,
     name,
     password,
+    avatar_url,
   }: ClientRepositoryContractProps): Promise<ClientDTO> {
     const newClientEntities = IntClientCreate.create({
       bio,
       email,
       name,
       password,
+      avatar_url,
     });
 
-    const newClient = await prisma.client.create({
+    const newClient = await this.prisma.client.create({
       data: {
         bio: newClientEntities.props.bio,
         email: newClientEntities.props.email,
         name: newClientEntities.props.name,
         password: newClientEntities.props.password,
+        avatar_url: newClientEntities.props.avatar_url,
       },
     });
 

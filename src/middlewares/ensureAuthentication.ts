@@ -34,6 +34,10 @@ export async function ensureAuthentication(
       throw (new AppError("Not Authorization"), 401);
     }
 
+    req.client = {
+      id: client.id,
+    };
+
     next();
   } catch (err) {
     throw new AppError("Invalid Token", 401);
