@@ -27,6 +27,20 @@ class AuthenticationClientService {
   async execute({ email, password }: IRequest): Promise<IResponse> {
     const user = await this.ClientRepository.GetClientByEmail(email);
 
+    /* Ignore */
+
+    if (user) {
+      const userArr = Object.entries(user);
+      let newEmail;
+      for (let [key, value] of userArr) {
+        if (key !== "email") {
+          continue;
+        }
+
+        newEmail = { key: value };
+      }
+    }
+
     if (!user) {
       throw new AppError("Email or Password Incorrect!!", 401);
     }

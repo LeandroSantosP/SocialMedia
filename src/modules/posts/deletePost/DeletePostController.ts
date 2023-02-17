@@ -4,12 +4,12 @@ import { DeletePostService } from "./DeletePostService";
 
 export class DeletePostController {
   async handle(req: Request, res: Response) {
-    const { authorId } = req.params;
-    const { postId } = req.body;
+    const { postId } = req.params;
+    const { id } = req.client;
 
     const repository = container.resolve(DeletePostService);
 
-    await repository.execute({ authorId: Number(authorId), postId });
+    await repository.execute({ authorId: id, postId });
 
     res.status(202).send();
   }

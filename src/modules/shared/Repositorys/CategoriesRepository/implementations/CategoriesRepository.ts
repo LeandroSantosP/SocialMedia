@@ -71,7 +71,7 @@ export class CategoriesRepository implements ICategoriesContract {
   }
 
   async list(): Promise<Category[]> {
-    const allCategories = await this.prisma.category.findMany({});
+    const allCategories = await this.prisma.category.findMany();
 
     return allCategories;
   }

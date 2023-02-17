@@ -13,10 +13,10 @@ model Client {
   email      String    @unique
   bio        String?
   createdAt  DateTime  @default(now())
-  avatar_url String?
   updatedAt  DateTime  @updatedAt
   password   String
   IsAdmin    Boolean   @default(false)
+  avatar_url String?
   Comments   Comment[]
   posts      Post[]
 

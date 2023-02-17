@@ -5,17 +5,15 @@ import { MakeACommentsOnPostService } from "./MakeACommentsOnPostService";
 
 export class MakeACommentOnPostController {
   async handle(req: Request, res: Response): Promise<Response> {
-    const { authorId, authorName, comment, postId } = req.body;
-
-    console.log(authorId);
+    const { comment, postId } = req.body;
+    const { id } = req.client;
 
     const repository = container.resolve(MakeACommentsOnPostService);
 
     await repository.execute({
-      authorId,
-      authorName,
       comment,
       postId,
+      client_id: id,
     });
 
     return res.status(201).json({

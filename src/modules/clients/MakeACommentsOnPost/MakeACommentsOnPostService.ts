@@ -2,12 +2,12 @@ import { inject, injectable } from "tsyringe";
 import { IPostContract } from "../../shared/Repositorys/PostRepository/create-post-contract";
 import { CommentsRepositoryContract } from "../../shared/Repositorys/CommentsRepository/comment-repository-contract";
 import { AppError } from "../../../middlewares/appErros";
+import { ClientRepositoryContract } from "../../shared/Repositorys/ClientRepository/client-repository-contract";
 
 interface IRequest {
-  authorName: string;
   comment: string;
-  authorId: number;
   postId: string;
+  client_id: number;
 }
 
 @injectable()
@@ -17,21 +17,21 @@ export class MakeACommentsOnPostService {
     private commentsRepository: CommentsRepositoryContract,
 
     @inject("PostRepository")
-    private postRepository: IPostContract
+    private postRepository: IPostContract,
+
+    @inject("ClientRepository")
+    private clientRepository: ClientRepositoryContract
   ) {}
 
-  async execute({
-    authorId = 1,
-    authorName,
-    comment,
-    postId,
-  }: IRequest): Promise<void> {
+  async execute({ comment, postId, client_id }: IRequest): Promise<void> {
     const allPosts = await this.postRepository.getAllPost();
+
+    const client = await this.clientRepository.GetClientById(client_id);
 
     let authorExists: boolean[] = [];
 
     allPosts.forEach((post) => {
-      const HaveSomethingAuthor = post.author.id === authorId;
+      const HaveSomethingAuthor = post.author.id === client?.id;
       return authorExists.push(HaveSomethingAuthor);
     });
 
@@ -45,11 +45,12 @@ export class MakeACommentsOnPostService {
       throw new AppError("Post does not Exists!");
     }
 
-    return await this.commentsRepository.create({
-      authorId,
-      authorName,
-      comment,
-      postId,
-    });
+    if (client)
+      return await this.commentsRepository.create({
+        authorId: client?.id,
+        authorName: client?.name,
+        comment,
+        postId,
+      });
   }
 }

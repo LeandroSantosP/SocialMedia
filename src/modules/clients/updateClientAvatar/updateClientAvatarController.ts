@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { container } from "tsyringe";
+import { AppError } from "../../../middlewares/appErros";
 import { UpdateClientAvatarService } from "./updateClientAvatarService";
 
 export class UpdateClientAvatarController {
@@ -12,9 +13,13 @@ export class UpdateClientAvatarController {
       UpdateClientAvatarService
     );
 
+    if (!avatar_file) {
+      throw new AppError("Avatar Url Is Require!");
+    }
+
     await updatedClientAvatarService.execute({
       user_id: Number(id),
-      avatar_file: avatar_file ?? "",
+      avatar_file,
     });
 
     return res.status(204).send();

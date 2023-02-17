@@ -86,6 +86,7 @@ export class ClientRepository implements ClientRepositoryContract {
         name: true,
         bio: true,
         id: true,
+        avatar_url: true,
         posts: {
           where: {
             id: UniquePostClientsEntities.props.postId.toString(),

@@ -53,6 +53,7 @@ export class PostRepository implements IPostContract {
             category: {
               select: {
                 name: true,
+                slug: true,
               },
             },
           },

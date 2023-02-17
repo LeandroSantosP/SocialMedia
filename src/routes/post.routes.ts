@@ -13,6 +13,6 @@ const postRouter = Router();
 postRouter.get("/", getAllPostController.handle);
 postRouter.use(ensureAuthentication);
 postRouter.post("/", createPostController.handle);
-postRouter.delete("/delete/:authorId", deletePostController.handle);
+postRouter.delete("/delete/:postId", deletePostController.handle);
 
 export { postRouter };
