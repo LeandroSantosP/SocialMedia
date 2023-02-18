@@ -47,7 +47,7 @@ export class MakeACommentsOnPostService {
 
     if (client)
       return await this.commentsRepository.create({
-        authorId: client?.id,
+        authorId: client.id ?? 0,
         authorName: client?.name,
         comment,
         postId,

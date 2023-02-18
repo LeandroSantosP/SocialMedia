@@ -2,17 +2,18 @@ import { AppError } from "../../../middlewares/appErros";
 import { prisma } from "../../prisma/client";
 import { Entity } from "../core/Entity";
 import { GetUniquePostOfClientProps } from "../Repositorys/ClientRepository/client-repository-contract";
+import { ClientDTO } from "../dtos/ClientDTO";
 import {
   ClientRepositoryContractProps,
   GetAllPostsProps,
 } from "../Repositorys/ClientRepository/client-repository-contract";
 
-export class IntClientCreate extends Entity<ClientRepositoryContractProps> {
-  private constructor(props: ClientRepositoryContractProps) {
+export class IntClientCreate extends Entity<ClientDTO> {
+  private constructor(props: ClientDTO) {
     super(props);
   }
 
-  static create(props: ClientRepositoryContractProps) {
+  static create(props: ClientDTO) {
     const category = new IntClientCreate(props);
     return category;
   }

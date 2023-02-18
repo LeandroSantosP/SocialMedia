@@ -1,6 +1,6 @@
-import { CategoryRepositoryInMemory } from "../../../modules/shared/Repositorys/in-memory/categories-repository-in-memory";
-import { ClientRepositoryInMemory } from "../../../modules/shared/Repositorys/in-memory/client-repository-in-memory";
 import "reflect-metadata";
+import { CategoryRepositoryInMemory } from "../../../modules/shared/Repositorys/CategoriesRepository/in-memory/categories-repository-in-memory";
+import { ClientRepositoryInMemory } from "../../shared/Repositorys/ClientRepository/in-memory/client-repository-in-memory";
 import { CreateCategoriesDTO } from "./CreateCategoriesService";
 import { CreateCategoriesService } from "./CreateCategoriesService";
 import { AppError } from "../../../middlewares/appErros";

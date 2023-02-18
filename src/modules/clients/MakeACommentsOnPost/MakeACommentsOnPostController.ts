@@ -10,11 +10,12 @@ export class MakeACommentOnPostController {
 
     const repository = container.resolve(MakeACommentsOnPostService);
 
-    await repository.execute({
-      comment,
-      postId,
-      client_id: id,
-    });
+    if (id)
+      await repository.execute({
+        comment,
+        postId,
+        client_id: id,
+      });
 
     return res.status(201).json({
       message: "Created",

@@ -1,11 +1,11 @@
-import { ClientDTO } from "../../dtos/ClientDTO";
-import { IntClientCreate } from "../../entities/Client";
+import { ClientDTO } from "../../../dtos/ClientDTO";
+import { IntClientCreate } from "../../../entities/Client";
 import {
   ClientRepositoryContract,
   ClientRepositoryContractProps,
   GetAllPostsProps,
   GetUniquePostOfClientProps,
-} from "../ClientRepository/client-repository-contract";
+} from "../client-repository-contract";
 
 export class ClientRepositoryInMemory implements ClientRepositoryContract {
   clients: ClientDTO[] = [];
@@ -18,17 +18,23 @@ export class ClientRepositoryInMemory implements ClientRepositoryContract {
     avatar_url,
   }: ClientRepositoryContractProps): Promise<void> {
     const newClient = IntClientCreate.create({
-      avatar_url,
+      avatar_url: avatar_url,
       bio,
+      createdAt: new Date(),
+      updatedAt: new Date(),
       email,
+      id: Math.random(),
+      IsAdmin: false,
       name,
       password,
     }).props;
 
+    this.clients.push(newClient);
+
     return;
   }
-  getAllAccounts(): Promise<ClientDTO[]> {
-    throw new Error("Method not implemented.");
+  async getAllAccounts(): Promise<ClientDTO[]> {
+    return this.clients;
   }
   GetAllPostsOfClient({ id }: GetAllPostsProps): Promise<
     {
@@ -51,13 +57,11 @@ export class ClientRepositoryInMemory implements ClientRepositoryContract {
   > {
     throw new Error("Method not implemented.");
   }
-  GetClientByEmail(email: string): Promise<ClientDTO | null> {
-    throw new Error("Method not implemented.");
+  async GetClientByEmail(email: string): Promise<ClientDTO | null> {
+    return this.clients.find((client) => client.email === email) ?? null;
   }
   async GetClientById(id: number): Promise<ClientDTO | null> {
-    const client = this.clients.find((client) => client.id === id);
-
-    return client ?? null;
+    return this.clients.find((client) => client.id === id) ?? null;
   }
   GetUniquePostOfClient({ id, postId }: GetUniquePostOfClientProps): Promise<{
     id: number;

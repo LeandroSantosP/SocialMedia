@@ -17,8 +17,6 @@ export class PostRepository implements IPostContract {
       },
     });
 
-    console.log(postDeleted);
-
     return;
   }
 

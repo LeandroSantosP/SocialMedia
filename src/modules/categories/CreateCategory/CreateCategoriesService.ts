@@ -2,7 +2,7 @@ import { inject, injectable, isValueProvider } from "tsyringe";
 
 import { AppError } from "../../../middlewares/appErros";
 import { ICategoriesContract } from "../../shared/Repositorys/CategoriesRepository/categories-repository-contract";
-import { ClientRepositoryContract } from "../../shared/Repositorys/ClientRepository/client-repository-contract";
+import { ClientRepositoryContract } from "../../../modules/shared/Repositorys/ClientRepository/client-repository-contract";
 
 export type CreateCategoriesDTO = {
   name: string;
@@ -32,11 +32,7 @@ export class CreateCategoriesService {
           continue;
         }
 
-        /* Inpemetion just admins can create a new category */
-
-        // if (value === false) {
-        //   throw new AppError("Client Does not Authenticate");
-        // }
+        /* Inspection -  just admins can create a new category */
       }
     }
 

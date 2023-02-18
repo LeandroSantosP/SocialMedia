@@ -1,10 +1,10 @@
-import { CategoryDTO } from "../../dtos/CategoryDTO";
+import { CategoryDTO } from "../../../dtos/CategoryDTO";
 
 import { randomUUID } from "crypto";
 
-import { ICategoriesContract } from "../CategoriesRepository/categories-repository-contract";
+import { ICategoriesContract } from "../../CategoriesRepository/categories-repository-contract";
 
-import { Category as newCategory } from "../../entities/Category";
+import { Category as newCategory } from "../../../entities/Category";
 
 export class CategoryRepositoryInMemory implements ICategoriesContract {
   categories: CategoryDTO[] = [];
