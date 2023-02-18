@@ -1,13 +1,8 @@
 import { Entity } from "../core/Entity";
+import { CategoryDTO } from "../dtos/CategoryDTO";
 
-interface CategoryProps {
-  name: string;
-  description?: string;
-  slug: string;
-}
-
-export class Category extends Entity<CategoryProps> {
-  private constructor(props: CategoryProps) {
+export class Category extends Entity<CategoryDTO> {
+  private constructor(props: CategoryDTO) {
     super(props);
   }
 
@@ -19,7 +14,7 @@ export class Category extends Entity<CategoryProps> {
     return slug;
   }
 
-  static create(props: CategoryProps, id?: string) {
+  static create(props: CategoryDTO, id?: string) {
     const category = new Category(props);
     return category;
   }

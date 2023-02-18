@@ -177,7 +177,7 @@ export class ClientRepository implements ClientRepositoryContract {
     name,
     password,
     avatar_url,
-  }: ClientRepositoryContractProps): Promise<ClientDTO> {
+  }: ClientRepositoryContractProps): Promise<void> {
     const newClientEntities = IntClientCreate.create({
       bio,
       email,
@@ -186,7 +186,7 @@ export class ClientRepository implements ClientRepositoryContract {
       avatar_url,
     });
 
-    const newClient = await this.prisma.client.create({
+    await this.prisma.client.create({
       data: {
         bio: newClientEntities.props.bio,
         email: newClientEntities.props.email,
@@ -196,6 +196,6 @@ export class ClientRepository implements ClientRepositoryContract {
       },
     });
 
-    return newClient;
+    return;
   }
 }

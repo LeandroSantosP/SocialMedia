@@ -1,6 +1,6 @@
 import "reflect-metadata";
-import "./modules/shared/tsyringe";
 import "express-async-errors";
+import "./modules/shared/tsyringe";
 import express, { NextFunction, Request, Response } from "express";
 import { AppError } from "./middlewares/appErros";
 import { AllRoutes } from "./routes";

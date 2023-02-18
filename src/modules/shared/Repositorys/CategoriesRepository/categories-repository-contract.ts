@@ -1,17 +1,12 @@
 import { Category } from "@prisma/client";
-
-export interface CreateNewCategoryDTO {
-  name: string;
-  description?: string;
-  slug: string;
-}
+import { CategoryDTO } from "../../dtos/CategoryDTO";
 
 export abstract class ICategoriesContract {
-  abstract create(dados: CreateNewCategoryDTO): Promise<Category>;
-  abstract list(): Promise<Category[]>;
+  abstract create(dados: CategoryDTO): Promise<void>;
+  abstract list(): Promise<CategoryDTO[]>;
 
   abstract listAllCategoriesAndPosts(): Promise<
-    (Category & {
+    (CategoryDTO & {
       CategoriesOnPosts: {
         post: {
           title: string;
@@ -23,6 +18,6 @@ export abstract class ICategoriesContract {
     })[]
   >;
 
-  abstract findUnique(slug: string): Promise<Category | null>;
-  abstract findUniqueByName(name: string): Promise<Category | null>;
+  abstract findUnique(slug: string): Promise<CategoryDTO | null>;
+  abstract findUniqueByName(name: string): Promise<CategoryDTO | null>;
 }

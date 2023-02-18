@@ -57,7 +57,7 @@ class AuthenticationClientService {
       { userId: user.id },
       "45d57e51c68ecd47a60a180d847d12fc",
       {
-        expiresIn: "1d",
+        expiresIn: "1D",
       }
     );
 

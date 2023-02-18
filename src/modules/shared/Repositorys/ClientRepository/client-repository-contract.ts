@@ -23,7 +23,7 @@ export abstract class ClientRepositoryContract {
     name,
     password,
     avatar_url,
-  }: ClientRepositoryContractProps): Promise<ClientDTO>;
+  }: ClientRepositoryContractProps): Promise<void>;
 
   abstract getAllAccounts(): Promise<ClientDTO[]>;
 

@@ -61,9 +61,7 @@ export class CreateNewClientService {
           avatar_url,
         });
 
-        const { password: _, ...ClientInfos } = result;
-
-        return ClientInfos;
+        return;
       })
       .catch((err: yup.ValidationError) => {
         let ErrorMessage: IErrorClient = {};

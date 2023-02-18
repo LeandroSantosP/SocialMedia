@@ -1,10 +1,7 @@
 import { Category } from "@prisma/client";
 import { prisma } from "../../../../prisma/client";
 import { Category as newCategories } from "../../../entities/Category";
-import {
-  CreateNewCategoryDTO,
-  ICategoriesContract,
-} from "../categories-repository-contract";
+import { ICategoriesContract } from "../categories-repository-contract";
 
 export class CategoriesRepository implements ICategoriesContract {
   private prisma;
@@ -76,18 +73,13 @@ export class CategoriesRepository implements ICategoriesContract {
     return allCategories;
   }
 
-  async create({
-    name,
-    slug,
-    description,
-  }: CreateNewCategoryDTO): Promise<Category> {
+  async create({ name, slug, description }: Category): Promise<void> {
     const category = newCategories.create({
       description,
       name,
       slug,
     });
-
-    const newCategory = await this.prisma.category.create({
+    await this.prisma.category.create({
       data: {
         name: category.props.name,
         description: category.props.description,
@@ -95,6 +87,6 @@ export class CategoriesRepository implements ICategoriesContract {
       },
     });
 
-    return newCategory;
+    return;
   }
 }

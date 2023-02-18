@@ -32,21 +32,20 @@ export class CreateCategoriesService {
           continue;
         }
 
-        if (value === false) {
-          throw new AppError("Client Does not Authenticate");
-        }
+        /* Inpemetion just admins can create a new category */
+
+        // if (value === false) {
+        //   throw new AppError("Client Does not Authenticate");
+        // }
       }
     }
 
     const AllCategoriesObj = await this.createCategoryRepository.list();
-    const allCategories = Object.entries(AllCategoriesObj[1]);
 
-    for (let [key, value] of allCategories) {
-      if (key !== "slug") {
-        continue;
-      }
+    const allCategories = Object.entries(AllCategoriesObj);
 
-      if (value === slug) {
+    for (let category of allCategories) {
+      if (category[1].slug === slug) {
         throw new AppError("Slug Already Exists!");
       }
     }
@@ -58,12 +57,12 @@ export class CreateCategoriesService {
       throw new AppError("Name Already Exists!");
     }
 
-    const newCategory = await this.createCategoryRepository.create({
+    await this.createCategoryRepository.create({
       name,
       slug,
       description,
     });
 
-    return newCategory;
+    return;
   }
 }

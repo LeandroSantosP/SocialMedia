@@ -1,8 +1,8 @@
 export interface CategoryDTO {
-  id: string;
+  id?: string;
   name: string;
   description: string | null;
   slug: string;
-  created_at: Date;
-  updated_At: Date;
+  created_at?: Date;
+  updated_At?: Date;
 }
