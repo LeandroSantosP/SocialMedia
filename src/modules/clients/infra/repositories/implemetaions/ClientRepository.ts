@@ -99,6 +99,7 @@ export class ClientRepository implements ClientRepositoryContract {
             content: true,
             visible: true,
             created_at: true,
+            authorId: true,
             comments: {
               select: {
                 id: true,
@@ -155,6 +156,9 @@ export class ClientRepository implements ClientRepositoryContract {
         authorId: true,
         updated_At: true,
         comments: {
+          orderBy: {
+            created_at: "desc",
+          },
           select: {
             id: true,
             authorName: true,

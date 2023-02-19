@@ -5,6 +5,13 @@ export interface findBySlugProps {
   title: string;
 }
 
+export interface UpdatePostProps {
+  post_id: string;
+  content: string;
+  IsPublished: boolean;
+  title: string;
+}
+
 export abstract class IPostContract {
   abstract findBySlug(slug: string): Promise<PostDTO | null>;
 
@@ -15,6 +22,7 @@ export abstract class IPostContract {
       visible: boolean;
       content: string | null;
       created_at: Date;
+      IsPublished: boolean;
       review: Review[];
       CategoriesOnPosts: {
         category: {
@@ -27,6 +35,13 @@ export abstract class IPostContract {
       };
     }[]
   >;
+
+  abstract UpdatePost({
+    IsPublished,
+    content,
+    post_id,
+    title,
+  }: UpdatePostProps): Promise<PostDTO>;
 
   abstract create({
     title,

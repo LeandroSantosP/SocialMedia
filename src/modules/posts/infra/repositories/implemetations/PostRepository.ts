@@ -1,5 +1,5 @@
 import { prisma } from "../../../../prisma/client";
-import { IPostContract } from "../create-post-contract";
+import { IPostContract, UpdatePostProps } from "../create-post-contract";
 import { Post } from "../../prisma/Post";
 import { CreatePostProps } from "../../prisma/Post";
 import { PostDTO } from "../../../../shared/dtos/PostDTO";
@@ -11,8 +11,29 @@ export class PostRepository implements IPostContract {
   constructor() {
     this.prisma = prisma;
   }
+
+  async UpdatePost({
+    IsPublished,
+    content,
+    post_id,
+    title,
+  }: UpdatePostProps): Promise<PostDTO> {
+    const postUpdated = await this.prisma.post.update({
+      where: {
+        id: post_id,
+      },
+      data: {
+        content,
+        IsPublished,
+        title,
+      },
+    });
+
+    return postUpdated;
+  }
+
   async delete(id: string): Promise<void> {
-    const postDeleted = await this.prisma.post.delete({
+    await this.prisma.post.delete({
       where: {
         id,
       },
@@ -28,6 +49,7 @@ export class PostRepository implements IPostContract {
       visible: boolean;
       content: string | null;
       created_at: Date;
+      IsPublished: boolean;
       review: Review[];
       CategoriesOnPosts: {
         category: {
@@ -49,6 +71,7 @@ export class PostRepository implements IPostContract {
         content: true,
         comments: true,
         review: true,
+        IsPublished: true,
         CategoriesOnPosts: {
           select: {
             category: {

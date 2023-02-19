@@ -1,4 +1,4 @@
-import { prisma } from "../../prisma/client";
+import { AppError } from "../../shared/infra/http/middlewares/appErros";
 import {
   ClientRepositoryContract,
   GetUniquePostOfClientProps,
@@ -16,6 +16,10 @@ export class GetUniquePostOfClientService {
     const PostPublished = ClientUniquePost?.posts.filter(
       (post) => post.IsPublished !== false
     );
+
+    if (PostPublished?.length === 0) {
+      throw new AppError("Post not Published!");
+    }
 
     return PostPublished;
   }
