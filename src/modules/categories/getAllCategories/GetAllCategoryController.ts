@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { CategoriesRepository } from "../../shared/Repositorys/CategoriesRepository/implementations/CategoriesRepository";
+import { CategoriesRepository } from "../infra/repository/implemations/CategoriesRepository";
 import { GetAllCategoriesService } from "./GetAllCategoriesService";
 
 export class GetAllCategoriesController {

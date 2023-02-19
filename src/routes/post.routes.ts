@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { ensureAuthentication } from "../middlewares/ensureAuthentication";
+import { ensureAuthentication } from "../modules/shared/infra/http/middlewares/ensureAuthentication";
 import { CreatePostController } from "../modules/posts/createPost/CreatePostController";
 import { DeletePostController } from "../modules/posts/deletePost/DeletePostController";
 import { GetAllPostController } from "../modules/posts/getAllPosts/GetAllPostsController";

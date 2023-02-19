@@ -1,6 +1,6 @@
 import { inject, injectable } from "tsyringe";
-import { AppError } from "../../../middlewares/appErros";
-import { CategoryOnPostContract } from "../../shared/Repositorys/CreateCategoryOnPostDService.ts/categoryonpost-repository-contract";
+import { AppError } from "../../shared/infra/http/middlewares/appErros";
+import { CategoryOnPostContract } from "../infra/repository/categoryonpost-repository-contract";
 
 export type CreateCategoryOnPostDTO = {
   postId: string;
@@ -21,6 +21,8 @@ export class CreateCategoryOnPostService {
     const categoryExists = await this.CategoryOnPostRepository.CategoryExist(
       categoryId
     );
+
+    /* Verifiel if post already in category */
 
     if (!categoryExists) {
       throw new AppError("Category does not exists!");

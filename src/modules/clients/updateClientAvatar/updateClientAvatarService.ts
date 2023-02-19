@@ -1,6 +1,6 @@
 import { inject, injectable } from "tsyringe";
 import { deleteFile } from "../../../utils/file";
-import { ClientRepositoryContract } from "../../shared/Repositorys/ClientRepository/client-repository-contract";
+import { ClientRepositoryContract } from "../infra/repositories/client-repository-contract";
 
 interface IRequest {
   user_id: number;

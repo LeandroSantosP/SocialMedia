@@ -2,7 +2,7 @@ import { prisma } from "../../prisma/client";
 import {
   ClientRepositoryContract,
   GetUniquePostOfClientProps,
-} from "../../shared/Repositorys/ClientRepository/client-repository-contract";
+} from "../infra/repositories/client-repository-contract";
 
 export class GetUniquePostOfClientService {
   constructor(private ClientRepository: ClientRepositoryContract) {}
@@ -13,6 +13,10 @@ export class GetUniquePostOfClientService {
       postId,
     });
 
-    return ClientUniquePost;
+    const PostPublished = ClientUniquePost?.posts.filter(
+      (post) => post.IsPublished !== false
+    );
+
+    return PostPublished;
   }
 }

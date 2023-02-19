@@ -1,7 +1,7 @@
 import "reflect-metadata";
-import { AppError } from "../../../middlewares/appErros";
+import { AppError } from "../../shared/infra/http/middlewares/appErros";
 import { ClientDTO } from "../../../modules/shared/dtos/ClientDTO";
-import { ClientRepositoryInMemory } from "../../../modules/shared/Repositorys/ClientRepository/in-memory/client-repository-in-memory";
+import { ClientRepositoryInMemory } from "../infra/repositories/in-memory/client-repository-in-memory";
 import { CreateNewClientService } from "../../clients/CreateNewClient/CreateNewClientService";
 import { AuthenticationClientService } from "../../clients/AuthenticationClient/AuthenticationClientService";
 

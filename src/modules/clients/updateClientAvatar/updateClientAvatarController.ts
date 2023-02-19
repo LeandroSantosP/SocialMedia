@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { container } from "tsyringe";
-import { AppError } from "../../../middlewares/appErros";
+import { AppError } from "../../shared/infra/http/middlewares/appErros";
 import { UpdateClientAvatarService } from "./updateClientAvatarService";
 
 export class UpdateClientAvatarController {

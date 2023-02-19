@@ -2,7 +2,7 @@ import multer from "multer";
 import { Router } from "express";
 import uploadConfig from "../config/upload";
 
-import { ensureAuthentication } from "../middlewares/ensureAuthentication";
+import { ensureAuthentication } from "../modules/shared/infra/http/middlewares/ensureAuthentication";
 import { CrateNewClientController } from "../modules/clients/CreateNewClient/CreateNewClientController";
 import { GetAllPostOfClientController } from "../modules/clients/GetAllPostOfClient/GetAllPostOfClientController";
 import { GetUniquePostOfClientController } from "../modules/clients/GetUniquePostOfClient/GetUniquePostOfClientController";

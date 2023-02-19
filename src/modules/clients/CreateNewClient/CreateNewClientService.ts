@@ -1,10 +1,11 @@
 import {
   ClientRepositoryContract,
   ClientRepositoryContractProps,
-} from "../../shared/Repositorys/ClientRepository/client-repository-contract";
+} from "../infra/repositories/client-repository-contract";
 import bcrypt from "bcrypt";
 import * as yup from "yup";
-import { AppError } from "../../../middlewares/appErros";
+import { AppError } from "../../shared/infra/http/middlewares/appErros";
+import { inject, injectable } from "tsyringe";
 
 export type IErrorClient = {
   [id: string]: string;
@@ -24,10 +25,14 @@ const schemaOfNewClient = yup.object().shape({
     .min(3, "min 3 length"),
 });
 
+@injectable()
 export class CreateNewClientService {
   private schemaOfNewClient;
 
-  constructor(private createClientRepository: ClientRepositoryContract) {
+  constructor(
+    @inject("ClientRepository")
+    private createClientRepository: ClientRepositoryContract
+  ) {
     this.schemaOfNewClient = schemaOfNewClient;
   }
 
@@ -37,7 +42,7 @@ export class CreateNewClientService {
     password,
     bio,
     avatar_url,
-  }: ClientRepositoryContractProps) {
+  }: ClientRepositoryContractProps): Promise<void | IErrorClient> {
     const allClients = await this.createClientRepository.getAllAccounts();
 
     const ClientAlreadyExists = allClients.some(
@@ -53,7 +58,7 @@ export class CreateNewClientService {
       .then(async (validateData) => {
         const hashPassword = await bcrypt.hash(validateData.password, 9);
 
-        const result = await this.createClientRepository.create({
+        await this.createClientRepository.create({
           bio,
           email: validateData.email,
           name: validateData.name,

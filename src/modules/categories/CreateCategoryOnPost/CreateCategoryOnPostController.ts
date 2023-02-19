@@ -1,5 +1,5 @@
-import { Request, Response } from "express";
 import { container } from "tsyringe";
+import { Request, Response } from "express";
 import { CreateCategoryOnPostService } from "./CreateCategoryOnPostService";
 
 export class CreateCategoryOnPostController {

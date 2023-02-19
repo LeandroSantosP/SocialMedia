@@ -1,7 +1,7 @@
 import { inject, injectable } from "tsyringe";
-import { AppError } from "../../../middlewares/appErros";
-import { ClientRepositoryContract } from "../../shared/Repositorys/ClientRepository/client-repository-contract";
-import { IPostContract } from "../../shared/Repositorys/PostRepository/create-post-contract";
+import { AppError } from "../../shared/infra/http/middlewares/appErros";
+import { ClientRepositoryContract } from "../../clients/infra/repositories/client-repository-contract";
+import { IPostContract } from "../infra/repositories/create-post-contract";
 
 interface IRequest {
   postId: string;

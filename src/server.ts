@@ -2,7 +2,7 @@ import "reflect-metadata";
 import "express-async-errors";
 import "./modules/shared/tsyringe";
 import express, { NextFunction, Request, Response } from "express";
-import { AppError } from "./middlewares/appErros";
+import { AppError } from "../src/modules/shared/infra/http/middlewares/appErros";
 import { AllRoutes } from "./routes";
 
 const app = express();

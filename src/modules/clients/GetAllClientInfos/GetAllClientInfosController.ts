@@ -7,7 +7,9 @@ export class GetAllClientInfosController {
     const { id } = req.client;
 
     const GetAllClientServices = container.resolve(GetAllClientInfosService);
-    const clientInfos = await GetAllClientServices.execute({ user_id: id });
+    const clientInfos = await GetAllClientServices.execute({
+      user_id: Number(id),
+    });
 
     res.status(200).json(clientInfos);
   }

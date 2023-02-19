@@ -1,7 +1,6 @@
-import { AppError } from "../../../middlewares/appErros";
-import { prisma } from "../../prisma/client";
+import { AppError } from "../../shared/infra/http/middlewares/appErros";
 import { PostDTO } from "../../shared/dtos/PostDTO";
-import { IPostContract } from "../../shared/Repositorys/PostRepository/create-post-contract";
+import { IPostContract } from "../infra/repositories/create-post-contract";
 
 export type CreatePostServiceDTO = {
   title: string;

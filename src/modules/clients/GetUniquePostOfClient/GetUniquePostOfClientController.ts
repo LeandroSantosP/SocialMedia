@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { ClientRepository } from "../../shared/Repositorys/ClientRepository/implemetations/ClientRepository";
+import { ClientRepository } from "../infra/repositories/implemetaions/ClientRepository";
 import { GetUniquePostOfClientService } from "./GetUniquePostOfClientService";
 
 export class GetUniquePostOfClientController {

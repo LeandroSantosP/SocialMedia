@@ -1,6 +1,6 @@
 import { inject, injectable } from "tsyringe";
-import { AppError } from "../../../middlewares/appErros";
-import { ClientRepositoryContract } from "../../shared/Repositorys/ClientRepository/client-repository-contract";
+import { AppError } from "../../shared/infra/http/middlewares/appErros";
+import { ClientRepositoryContract } from "../infra/repositories/client-repository-contract";
 import { sign } from "jsonwebtoken";
 import { compare } from "bcrypt";
 
@@ -65,7 +65,7 @@ class AuthenticationClientService {
       token,
       user: {
         name: user.name,
-        email: user.name,
+        email: user.email,
       },
     };
   }

@@ -1,7 +1,7 @@
 import { inject, injectable } from "tsyringe";
-import { AppError } from "../../../middlewares/appErros";
+import { AppError } from "../../shared/infra/http/middlewares/appErros";
 import { ClientDTO } from "../../shared/dtos/ClientDTO";
-import { ClientRepositoryContract } from "../../shared/Repositorys/ClientRepository/client-repository-contract";
+import { ClientRepositoryContract } from "../infra/repositories/client-repository-contract";
 
 interface IRequest {
   user_id: number;

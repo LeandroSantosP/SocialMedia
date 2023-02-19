@@ -1,11 +1,12 @@
 import { Request, Response } from "express";
-import { PostRepository } from "../../shared/Repositorys/PostRepository/implementations/PostRepository";
+import { container } from "tsyringe";
+import { GetAllPostService } from "./GetAllPostService";
 
 export class GetAllPostController {
   async handle(req: Request, res: Response) {
-    const repository = new PostRepository();
+    const repository = container.resolve(GetAllPostService);
 
-    const result = await repository.getAllPost();
+    const result = await repository.execute();
 
     res.status(200).json(result);
   }

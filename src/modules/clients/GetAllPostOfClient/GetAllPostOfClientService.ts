@@ -1,6 +1,5 @@
 import { inject, injectable } from "tsyringe";
-import { PostDTO } from "../../shared/dtos/PostDTO";
-import { ClientRepositoryContract } from "../../shared/Repositorys/ClientRepository/client-repository-contract";
+import { ClientRepositoryContract } from "../infra/repositories/client-repository-contract";
 
 export interface GetAllPostOfClientServiceRequest {
   id: number;
@@ -18,6 +17,10 @@ export class GetAllPostOfClientService {
       id,
     });
 
-    return Posts;
+    const postPlublished = Posts.filter((post) => post.IsPublished !== false);
+
+    console.log(postPlublished);
+
+    return postPlublished;
   }
 }

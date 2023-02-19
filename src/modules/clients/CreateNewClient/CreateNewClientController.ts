@@ -1,14 +1,13 @@
 import { Request, Response } from "express";
-import { ClientRepository } from "../../shared/Repositorys/ClientRepository/implemetations/ClientRepository";
+import { container } from "tsyringe";
 import { CreateNewClientService } from "./CreateNewClientService";
-import { IErrorClient } from "./CreateNewClientService";
 
 export class CrateNewClientController {
   async handle(req: Request, res: Response) {
     const { name, email, password, bio, avatar_url } = req.body;
-    const repository = new ClientRepository();
+    const repository = container.resolve(CreateNewClientService);
 
-    const Service = new CreateNewClientService(repository);
+    const Service = repository;
     const result = await Service.execute({
       bio,
       email,

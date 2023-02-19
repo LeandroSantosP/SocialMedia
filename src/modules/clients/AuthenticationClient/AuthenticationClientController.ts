@@ -9,6 +9,8 @@ export class AuthenticationClientController {
     const service = container.resolve(AuthenticationClientService);
     const result = await service.execute({ email, password });
 
+    console.log(result);
+
     res.status(201).json(result);
   }
 }

@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { PostRepository } from "../../shared/Repositorys/PostRepository/implementations/PostRepository";
+import { PostRepository } from "../infra/repositories/implemetations/PostRepository";
 import { CreatePostService } from "./CreatePostService";
 
 export class CreatePostController {
