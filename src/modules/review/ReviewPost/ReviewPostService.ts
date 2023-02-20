@@ -2,6 +2,7 @@ import { IPostContract } from "../../posts/infra/repositories/create-post-contra
 import { inject, injectable } from "tsyringe";
 import { ReviewPostContract } from "../infra/Repository/review-post-contract";
 import { AppError } from "../../shared/infra/http/middlewares/appErros";
+import { Post, Review } from "@prisma/client";
 
 interface IRequest {
   client_id: number;
@@ -19,7 +20,21 @@ export class ReviewPostService {
   ) {}
 
   async execute({ client_id, post_id }: IRequest) {
-    const all = await this.postRepository.getAllPost();
+    const all = (await this.postRepository.getAllPost()) as (Post & {
+      CategoriesOnPosts: {
+        category: {
+          name: string;
+          slug: string;
+        };
+      }[];
+      comments: Comment[];
+      review: Review[];
+      author: {
+        id: number;
+        name: string;
+        IsAdmin: boolean;
+      };
+    })[];
 
     const postForReview = all.find((post) => post.id == post_id);
 

@@ -3,8 +3,24 @@ import { prisma } from "../../../../prisma/client";
 import { CategoryOnPost } from "../../prisma/CategoryOnPost";
 import { CategoryDTO } from "../../../../shared/dtos/CategoryDTO";
 import { PostDTO } from "../../../../shared/dtos/PostDTO";
+import { CategoriesOnPosts } from "@prisma/client";
 
 export class CategoryOnPostRepository implements CategoryOnPostContract {
+  async GetPostOrCategoryExists(
+    category_id: string,
+    post_id: string
+  ): Promise<CategoriesOnPosts | null> {
+    const allPostOfOneCategory = await prisma.categoriesOnPosts.findUnique({
+      where: {
+        postId_categoryId: {
+          categoryId: category_id,
+          postId: post_id,
+        },
+      },
+    });
+
+    return allPostOfOneCategory;
+  }
   async CategoryExist(categoryId: string): Promise<CategoryDTO | null> {
     const categoryExists = await prisma.category.findUnique({
       where: {

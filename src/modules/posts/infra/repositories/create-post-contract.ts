@@ -1,6 +1,6 @@
 import { PostDTO } from "../../../shared/dtos/PostDTO";
-import { CreatePostProps } from "modules/posts/infra/prisma/Post";
-import { Review } from "@prisma/client";
+import { CreatePostProps } from "../../../posts/infra/prisma/Post";
+import { Post } from "@prisma/client";
 export interface findBySlugProps {
   title: string;
 }
@@ -15,26 +15,13 @@ export interface UpdatePostProps {
 export abstract class IPostContract {
   abstract findBySlug(slug: string): Promise<PostDTO | null>;
 
-  abstract getAllPost(): Promise<
-    {
-      id: string;
-      title: string;
-      visible: boolean;
-      content: string | null;
-      created_at: Date;
-      IsPublished: boolean;
-      review: Review[];
-      CategoriesOnPosts: {
-        category: {
-          name: string;
-        };
-      }[];
-      author: {
-        id: number;
-        name: string;
-      };
-    }[]
-  >;
+  abstract getAllPost(): Promise<PostDTO[]>;
+
+  abstract GetAllPostForSearch(
+    search: string,
+    take: number,
+    skip: number
+  ): Promise<Post[]>;
 
   abstract UpdatePost({
     IsPublished,

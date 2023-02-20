@@ -10,7 +10,6 @@ const categoryRoute = Router();
 
 categoryRoute.get("/", getAllCategoriesController.handle);
 categoryRoute.use(ensureAuthentication);
-
 categoryRoute.post("/post", createCategoryOnPostController.handle);
 
 export { categoryRoute };

@@ -1,6 +1,7 @@
 import { AppError } from "../../shared/infra/http/middlewares/appErros";
 import { PostDTO } from "../../shared/dtos/PostDTO";
 import { IPostContract } from "../infra/repositories/create-post-contract";
+import { inject, injectable } from "tsyringe";
 
 export type CreatePostServiceDTO = {
   title: string;
@@ -9,8 +10,12 @@ export type CreatePostServiceDTO = {
   content?: string;
 };
 
+@injectable()
 export class CreatePostService {
-  constructor(private createPostRepository: IPostContract) {}
+  constructor(
+    @inject("PostRepository")
+    private createPostRepository: IPostContract
+  ) {}
   async execute({
     title,
     visible,

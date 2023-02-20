@@ -22,13 +22,20 @@ export class CreateCategoryOnPostService {
       categoryId
     );
 
-    /* Verifiel if post already in category */
-
     if (!categoryExists) {
       throw new AppError("Category does not exists!");
     }
-
     const PostExists = await this.CategoryOnPostRepository.PostExist(postId);
+
+    const PostAlreadyExistsInCategory =
+      await this.CategoryOnPostRepository.GetPostOrCategoryExists(
+        categoryId,
+        postId
+      );
+
+    if (PostAlreadyExistsInCategory) {
+      throw new AppError("Post Already In This Category!!");
+    }
 
     if (!PostExists) {
       throw new AppError("Post does not exists!");

@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { PostRepository } from "../infra/repositories/implemetations/PostRepository";
+import { container } from "tsyringe";
 import { CreatePostService } from "./CreatePostService";
 
 export class CreatePostController {
@@ -7,9 +7,8 @@ export class CreatePostController {
     const { title, visible, content } = req.body;
     const { id } = req.client;
 
-    const repository = new PostRepository();
-    const service = new CreatePostService(repository);
-    const result = await service.execute({
+    const repository = container.resolve(CreatePostService);
+    const result = await repository.execute({
       title,
       visible,
       authorId: id,

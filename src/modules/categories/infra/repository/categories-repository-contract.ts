@@ -9,6 +9,8 @@ export abstract class ICategoriesContract {
   abstract create(dados: CategoryDTO): Promise<void>;
   abstract list(): Promise<CategoryDTO[]>;
 
+  abstract DeleteCategory(category_id: string): Promise<CategoryDTO>;
+
   abstract listAllCategoriesAndPosts(): Promise<
     (CategoryDTO & {
       CategoriesOnPosts: {

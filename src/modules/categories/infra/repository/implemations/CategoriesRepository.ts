@@ -1,4 +1,5 @@
 import { Category } from "@prisma/client";
+import { CategoryDTO } from "modules/shared/dtos/CategoryDTO";
 import { ClientDTO } from "modules/shared/dtos/ClientDTO";
 import { prisma } from "../../../../prisma/client";
 import { Category as newCategories } from "../../prisma/Category";
@@ -12,6 +13,15 @@ export class CategoriesRepository implements ICategoriesContract {
 
   constructor() {
     this.prisma = prisma;
+  }
+  async DeleteCategory(category_id: string): Promise<CategoryDTO> {
+    const CategoryForDelete = await this.prisma.category.delete({
+      where: {
+        id: category_id,
+      },
+    });
+
+    return CategoryForDelete;
   }
 
   async listAllCategoriesAndPosts(): Promise<

@@ -1,3 +1,6 @@
+import { Post, Review } from "@prisma/client";
+import { CommentDTO } from "../../shared/dtos/CommentsDTO";
+import { reviewDTO } from "../../review/infra/prisma/ReviewDTO";
 import { inject, injectable } from "tsyringe";
 import { IPostContract } from "../infra/repositories/create-post-contract";
 
@@ -9,7 +12,21 @@ export class GetAllPostService {
   ) {}
 
   async execute() {
-    const result = await this.PostRepository.getAllPost();
+    const result = (await this.PostRepository.getAllPost()) as (Post & {
+      CategoriesOnPosts: {
+        category: {
+          name: string;
+          slug: string;
+        };
+      }[];
+      comments: CommentDTO[];
+      review: reviewDTO[];
+      author: {
+        id: number;
+        name: string;
+        IsAdmin: boolean;
+      };
+    })[];
 
     for (let i = 0; i < result.length; i++) {
       const current = result[i];

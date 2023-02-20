@@ -3,9 +3,9 @@ import {
   ReviewPostContract,
   ICreateRequest,
   IToggleLikeReview,
+  ICreateResponse,
 } from "../review-post-contract";
 import { ReviewEntity } from "../../prisma/Review";
-import { Post } from "@prisma/client";
 import { reviewDTO } from "../../prisma/ReviewDTO";
 
 export class ReviewPostRepository implements ReviewPostContract {
@@ -41,16 +41,14 @@ export class ReviewPostRepository implements ReviewPostContract {
     return UpdatedReview;
   }
 
-  async create({ client_id, post_id }: ICreateRequest): Promise<{
-    post: Post;
-  }> {
+  async create({ client_id, post_id }: ICreateRequest): Promise<void> {
     const newReview = ReviewEntity.create({
       clientId: client_id,
       iliked: false,
       postId: post_id,
     });
 
-    const postAndCurrentTarget = await this.prisma.review.create({
+    await this.prisma.review.create({
       data: {
         author: {
           connect: {
@@ -70,6 +68,6 @@ export class ReviewPostRepository implements ReviewPostContract {
       },
     });
 
-    return postAndCurrentTarget;
+    return;
   }
 }
