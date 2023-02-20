@@ -3,7 +3,6 @@ import { IPostContract, UpdatePostProps } from "../create-post-contract";
 import { Post as PostEntity } from "../../prisma/Post";
 import { CreatePostProps } from "../../prisma/Post";
 import { PostDTO } from "../../../../shared/dtos/PostDTO";
-import { Post } from "@prisma/client";
 
 export class PostRepository implements IPostContract {
   private prisma;
@@ -15,7 +14,7 @@ export class PostRepository implements IPostContract {
     search: string,
     take: number,
     skip: number
-  ): Promise<Post[]> {
+  ): Promise<PostDTO[]> {
     const PostForSearch = await this.prisma.post.findMany({
       where: {
         title: {
@@ -51,12 +50,11 @@ export class PostRepository implements IPostContract {
         },
       },
     });
-    console.log(PostForSearch);
 
     return PostForSearch as any;
   }
 
-  async getAllPost(): Promise<Post[]> {
+  async getAllPost(): Promise<PostDTO[]> {
     const allPosts = await this.prisma.post.findMany({
       include: {
         author: {
@@ -105,7 +103,7 @@ export class PostRepository implements IPostContract {
   }
 
   async delete(id: string): Promise<void> {
-    let test = await this.prisma.post.delete({
+    await this.prisma.post.delete({
       where: {
         id,
       },

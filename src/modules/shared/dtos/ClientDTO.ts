@@ -1,5 +1,3 @@
-import { Client } from "@prisma/client";
-
 export type ClientDTO = {
   id?: number;
   name: string;

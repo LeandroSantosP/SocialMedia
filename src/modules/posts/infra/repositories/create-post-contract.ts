@@ -21,7 +21,7 @@ export abstract class IPostContract {
     search: string,
     take: number,
     skip: number
-  ): Promise<Post[]>;
+  ): Promise<PostDTO[]>;
 
   abstract UpdatePost({
     IsPublished,

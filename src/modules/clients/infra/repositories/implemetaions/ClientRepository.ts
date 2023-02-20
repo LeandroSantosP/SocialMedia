@@ -11,6 +11,7 @@ import {
   IntGetPostOfClient,
 } from "../../prisma/Client";
 import { ClientDTO } from "../../../../shared/dtos/ClientDTO";
+import { AllPostReturnProps, PostUniqueReturnProps } from "../../../types";
 
 export class ClientRepository implements ClientRepositoryContract {
   private prisma;
@@ -55,26 +56,7 @@ export class ClientRepository implements ClientRepositoryContract {
   async GetUniquePostOfClient({
     id,
     postId,
-  }: GetUniquePostOfClientProps): Promise<{
-    name: string;
-    bio: string | null;
-    avatar_url: string | null;
-    posts: {
-      title: string;
-      IsPublished: boolean;
-      content: string | null;
-      visible: boolean;
-      created_at: Date;
-      comments: {
-        id: string;
-        created_at: Date;
-        authorName: string;
-        comment: string;
-        authorId: number;
-      }[];
-    }[];
-    id: number;
-  } | null> {
+  }: GetUniquePostOfClientProps): Promise<PostUniqueReturnProps | null> {
     const UniquePostClientsEntities = await IntGetPostOfClient.execute({
       id,
       postId,
@@ -117,25 +99,9 @@ export class ClientRepository implements ClientRepositoryContract {
     return UniquePostClientEntities;
   }
 
-  async GetAllPostsOfClient({ id }: GetAllPostsProps): Promise<
-    {
-      id: string;
-      title: string;
-      content: string | null;
-      created_at: Date;
-      authorId: number;
-      comments: {
-        id: string;
-        created_at: Date;
-        authorName: string;
-        comment: string;
-        authorId: number;
-      }[];
-      IsPublished: boolean;
-      IsActive: boolean;
-      updated_At: Date;
-    }[]
-  > {
+  async GetAllPostsOfClient({
+    id,
+  }: GetAllPostsProps): Promise<AllPostReturnProps[]> {
     const allPostOfClientEntities = await IntClientGetAllPosts.execute({
       id,
     });

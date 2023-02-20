@@ -4,6 +4,13 @@ import { CreatePostProps } from "../../prisma/Post";
 import { IPostContract, UpdatePostProps } from "../create-post-contract";
 
 export class PostRepositoryInMemory implements IPostContract {
+  GetAllPostForSearch(
+    search: string,
+    take: number,
+    skip: number
+  ): Promise<PostDTO[]> {
+    throw new Error("Method not implemented.");
+  }
   private Post: Post[] = [];
 
   async getAllPost(): Promise<Post[]> {

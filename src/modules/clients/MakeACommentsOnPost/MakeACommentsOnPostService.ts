@@ -3,6 +3,8 @@ import { IPostContract } from "../../posts/infra/repositories/create-post-contra
 import { CommentsRepositoryContract } from "../../shared/Repositorys/CommentsRepository/comment-repository-contract";
 import { AppError } from "../../shared/infra/http/middlewares/appErros";
 import { ClientRepositoryContract } from "../infra/repositories/client-repository-contract";
+import { PostDTO } from "../../shared/dtos/PostDTO";
+import { reviewDTO } from "../../review/infra/prisma/ReviewDTO";
 
 interface IRequest {
   comment: string;
@@ -24,7 +26,22 @@ export class MakeACommentsOnPostService {
   ) {}
 
   async execute({ comment, postId, client_id }: IRequest): Promise<void> {
-    const allPosts = await this.postRepository.getAllPost();
+    const allPosts = (await this.postRepository.getAllPost()) as (PostDTO & {
+      CategoriesOnPosts: {
+        category: {
+          name: string;
+          slug: string;
+        };
+      }[];
+      comments: Comment[];
+      review: reviewDTO[];
+      author: {
+        id: number;
+        avatar_url: string | null;
+        name: string;
+        IsAdmin: boolean;
+      };
+    })[];
 
     const client = await this.clientRepository.GetClientById(client_id);
 

@@ -1,3 +1,4 @@
+import { AllPostReturnProps, PostUniqueReturnProps } from "../../../types/";
 import { ClientDTO } from "../../../../shared/dtos/ClientDTO";
 import { IntClientCreate } from "../../prisma/Client";
 import {
@@ -8,6 +9,15 @@ import {
 } from "../client-repository-contract";
 
 export class ClientRepositoryInMemory implements ClientRepositoryContract {
+  GetAllPostsOfClient({ id }: GetAllPostsProps): Promise<AllPostReturnProps[]> {
+    throw new Error("Method not implemented.");
+  }
+  GetUniquePostOfClient({
+    id,
+    postId,
+  }: GetUniquePostOfClientProps): Promise<PostUniqueReturnProps | null> {
+    throw new Error("Method not implemented.");
+  }
   clients: ClientDTO[] = [];
 
   async create({
@@ -36,55 +46,14 @@ export class ClientRepositoryInMemory implements ClientRepositoryContract {
   async getAllAccounts(): Promise<ClientDTO[]> {
     return this.clients;
   }
-  GetAllPostsOfClient({ id }: GetAllPostsProps): Promise<
-    {
-      id: string;
-      title: string;
-      content: string | null;
-      created_at: Date;
-      authorId: number;
-      comments: {
-        id: string;
-        created_at: Date;
-        authorName: string;
-        comment: string;
-        authorId: number;
-      }[];
-      IsPublished: boolean;
-      IsActive: boolean;
-      updated_At: Date;
-    }[]
-  > {
-    throw new Error("Method not implemented.");
-  }
+
   async GetClientByEmail(email: string): Promise<ClientDTO | null> {
     return this.clients.find((client) => client.email === email) ?? null;
   }
   async GetClientById(id: number): Promise<ClientDTO | null> {
     return this.clients.find((client) => client.id === id) ?? null;
   }
-  GetUniquePostOfClient({ id, postId }: GetUniquePostOfClientProps): Promise<{
-    name: string;
-    bio: string | null;
-    avatar_url: string | null;
-    posts: {
-      title: string;
-      IsPublished: boolean;
-      content: string | null;
-      visible: boolean;
-      created_at: Date;
-      comments: {
-        id: string;
-        created_at: Date;
-        authorName: string;
-        comment: string;
-        authorId: number;
-      }[];
-    }[];
-    id: number;
-  } | null> {
-    throw new Error("Method not implemented.");
-  }
+
   updatedClientAvatar(avatarRef: string | null, userId: number): Promise<void> {
     throw new Error("Method not implemented.");
   }

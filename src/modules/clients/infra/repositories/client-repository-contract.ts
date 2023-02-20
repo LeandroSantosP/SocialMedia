@@ -1,4 +1,4 @@
-import { PostDTO } from "modules/shared/dtos/PostDTO";
+import { AllPostReturnProps, PostUniqueReturnProps } from "../../types";
 import { ClientDTO } from "../../../shared/dtos/ClientDTO";
 
 export interface ClientRepositoryContractProps {
@@ -28,25 +28,9 @@ export abstract class ClientRepositoryContract {
 
   abstract getAllAccounts(): Promise<ClientDTO[]>;
 
-  abstract GetAllPostsOfClient({ id }: GetAllPostsProps): Promise<
-    {
-      id: string;
-      title: string;
-      content: string | null;
-      created_at: Date;
-      authorId: number;
-      comments: {
-        id: string;
-        created_at: Date;
-        authorName: string;
-        comment: string;
-        authorId: number;
-      }[];
-      IsPublished: boolean;
-      IsActive: boolean;
-      updated_At: Date;
-    }[]
-  >;
+  abstract GetAllPostsOfClient({
+    id,
+  }: GetAllPostsProps): Promise<AllPostReturnProps[]>;
 
   abstract GetClientByEmail(email: string): Promise<ClientDTO | null>;
   abstract GetClientById(id: number): Promise<ClientDTO | null>;
@@ -54,26 +38,7 @@ export abstract class ClientRepositoryContract {
   abstract GetUniquePostOfClient({
     id,
     postId,
-  }: GetUniquePostOfClientProps): Promise<{
-    name: string;
-    bio: string | null;
-    avatar_url: string | null;
-    posts: {
-      title: string;
-      IsPublished: boolean;
-      content: string | null;
-      visible: boolean;
-      created_at: Date;
-      comments: {
-        id: string;
-        created_at: Date;
-        authorName: string;
-        comment: string;
-        authorId: number;
-      }[];
-    }[];
-    id: number;
-  } | null>;
+  }: GetUniquePostOfClientProps): Promise<PostUniqueReturnProps | null>;
 
   abstract updatedClientAvatar(
     avatarRef: string | null,

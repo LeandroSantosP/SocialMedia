@@ -1,5 +1,5 @@
 import { Post, Review } from "@prisma/client";
-import { CommentDTO } from "../../shared/dtos/CommentsDTO";
+import { CommentDTO } from "../../shared/dtos/CommentDTO";
 import { reviewDTO } from "../../review/infra/prisma/ReviewDTO";
 import { inject, injectable } from "tsyringe";
 import { IPostContract } from "../infra/repositories/create-post-contract";

@@ -1,12 +1,9 @@
 import { Category } from "@prisma/client";
 import { CategoryDTO } from "modules/shared/dtos/CategoryDTO";
-import { ClientDTO } from "modules/shared/dtos/ClientDTO";
 import { prisma } from "../../../../prisma/client";
 import { Category as newCategories } from "../../prisma/Category";
-import {
-  GetAllClientInfosProps,
-  ICategoriesContract,
-} from "../categories-repository-contract";
+import { CAtegoryAndPostResponse } from "../../types";
+import { ICategoriesContract } from "../categories-repository-contract";
 
 export class CategoriesRepository implements ICategoriesContract {
   private prisma;
@@ -24,18 +21,7 @@ export class CategoriesRepository implements ICategoriesContract {
     return CategoryForDelete;
   }
 
-  async listAllCategoriesAndPosts(): Promise<
-    (Category & {
-      CategoriesOnPosts: {
-        post: {
-          title: string;
-          visible: boolean;
-          authorId: number;
-          content: string | null;
-        };
-      }[];
-    })[]
-  > {
+  async listAllCategoriesAndPosts(): Promise<CAtegoryAndPostResponse[]> {
     const categoryWithPost = await this.prisma.category.findMany({
       orderBy: {
         created_at: "desc",

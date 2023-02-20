@@ -9,7 +9,7 @@ export class DeletePostController {
 
     const repository = container.resolve(DeletePostService);
 
-    await repository.execute({ authorId: id, postId });
+    await repository.execute({ authorId: Number(id), postId });
 
     res.status(202).send();
   }
